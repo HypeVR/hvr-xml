@@ -1,5 +1,5 @@
-/** \mainpage hvr-Red API Documentation
+/** \mainpage hvr-xml API Documentation
 
-<b>hvr-Red</b> is the tools to get control Red camera and export Red footages
+<b>hvr-xml</b> is the tools to parse and write XML files
 
 */

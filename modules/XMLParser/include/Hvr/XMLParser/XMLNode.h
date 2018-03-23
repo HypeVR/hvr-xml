@@ -96,7 +96,7 @@ class XMLNode
    * @return     All attributes.
    */
   HVR_XMLPARSER_DLL
-  const std::map<const std::string, std::string> &GetAttrs() const;
+  const std::map<std::string, std::string> &GetAttrs() const;
 
   /**
    * @brief      Get number of attributes in this node.
@@ -208,7 +208,7 @@ class XMLNode
    * @return     whether the operation succeeds
    */
   HVR_XMLPARSER_DLL
-  bool QueryAttributes(std::map<const std::string, std::string> &attrs) const;
+  bool QueryAttributes(std::map<std::string, std::string> &attrs) const;
 
  private:
   // Subnodes
@@ -217,7 +217,7 @@ class XMLNode
   // Node information
   std::string tag_   = "";
   std::string value_ = "";
-  std::map<const std::string, std::string> attributes_;
+  std::map<std::string, std::string> attributes_;
   // std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list_;
   bool is_valid_ = true;
 };

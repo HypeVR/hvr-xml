@@ -116,8 +116,8 @@ int main(int argc, char **argv)
 
   for (int i = 0; i < static_cast<int>(root_node.GetNumOfSubNodes()); i++)
   {
-    std::map<const std::string, std::string> attrs = root_node[i].GetAttrs();
-    for (std::map<const std::string, std::string>::iterator it = attrs.begin();
+    std::map<std::string, std::string> attrs = root_node[i].GetAttrs();
+    for (std::map<std::string, std::string>::iterator it = attrs.begin();
          it != attrs.end();
          it++)
     {

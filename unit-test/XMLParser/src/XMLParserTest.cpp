@@ -214,7 +214,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLWriter_Write_test)
 
   std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
 
-  std::map<const std::string, std::string> attrs =
+  std::map<std::string, std::string> attrs =
       root->GetSubNodeByTag("TEST02", err_list).GetAttrs();
 
   ASSERT_EQ(attrs["attr"], "no");
@@ -300,11 +300,11 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryAttributes_test)
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
   hvr::XMLNode &tmp_node = (*root)[2][1];
-  std::map<const std::string, std::string> attrs;
+  std::map<std::string, std::string> attrs;
   ASSERT_EQ(tmp_node.QueryAttributes(attrs), false);
 
   hvr::XMLNode &tmp_node2 = (*root)["TEST02"];
-  std::map<const std::string, std::string> attrs2;
+  std::map<std::string, std::string> attrs2;
   ASSERT_EQ(tmp_node2.QueryAttributes(attrs2), true);
   ASSERT_EQ(attrs2["attr"], "no");
 }
