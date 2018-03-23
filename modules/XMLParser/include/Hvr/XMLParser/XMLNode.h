@@ -88,8 +88,7 @@ class XMLNode
    * @return     { description_of_the_return_value }
    */
   HVR_XMLPARSER_DLL
-  const std::string &LookUpAttrPropertyByName(
-      const std::string &attrname) const;
+  const std::string &GetAttrByName(const std::string &attrname) const;
 
   /**
    * @brief      Get all attributes associated with this node.
@@ -117,9 +116,12 @@ class XMLNode
 
   /**
    * @brief      Gets a subnode by subnode index. Caller must ensure index is
-   *             valid (using GetNumofSubNodes()).
+   *             valid (using GetNumofSubNodes()).(this function is outdated and
+   *             stays for backward compatability reason. Please refer to Sample
+   *             app on how to retrieve data by [] operator )
    *
    * @param[in]  subnodeidx  The subnode index.
+   * @param[out] err_list    vector holding error checking results.
    *
    * @return     A subnode.
    */
@@ -130,9 +132,12 @@ class XMLNode
 
   /**
    * @brief      Gets a subnode by tag name. Caller must ensure tag name is
-   *             valid.
+   *             valid. (this function is outdated and stays for backward
+   *             compatability reason. Please refer to Sample app on how to
+   *             retrieve data by [] operator )
    *
    * @param[in]  tag_name  The subnode tag name.
+   * @param[out] err_list  vector holding error checking results.
    *
    * @return     A subnode.
    */
@@ -153,21 +158,55 @@ class XMLNode
   bool NodeErrorChecker(
       std::vector<std::pair<std::string, XMLNode::NodeStat>> &err_list) const;
 
+  /**
+   * @brief      Set the boolean value for private member variable is_valid_;
+   *
+   * @param[in]  b     input value;
+   */
   HVR_XMLPARSER_DLL
   void SetNodeValidity(const bool b);
 
+  /**
+   * @brief      Return the private member variable is_valid_ value
+   *
+   * @return     is_valid_ value
+   */
   HVR_XMLPARSER_DLL
   bool CheckNodeValidity() const;
 
+  /**
+   * @brief      Retrieve the child node based on input index value
+   *
+   * @param[in]  idx     index value of child node
+   */
   HVR_XMLPARSER_DLL
   XMLNode &operator[](int idx);
 
+  /**
+   * @brief      Retrieve the first child node based on input tag name
+   *
+   * @param[in]  tag     tag name of child node
+   */
   HVR_XMLPARSER_DLL
   XMLNode &operator[](const std::string &tag);
 
+  /**
+   * @brief      Queries the text value of the node holdes
+   *
+   * @param[out] txt_val  The text value
+   *
+   * @return     whether the operation succeeds
+   */
   HVR_XMLPARSER_DLL
   bool QueryText(std::string &txt_val) const;
 
+  /**
+   * @brief      Queries attributes in the form of a map.
+   *
+   * @param      attrs  The attributes
+   *
+   * @return     whether the operation succeeds
+   */
   HVR_XMLPARSER_DLL
   bool QueryAttributes(std::map<const std::string, std::string> &attrs) const;
 

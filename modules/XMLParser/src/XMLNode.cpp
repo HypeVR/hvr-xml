@@ -51,8 +51,7 @@ const std::string &XMLNode::GetValue() const
   return value_;
 }
 
-const std::string &XMLNode::LookUpAttrPropertyByName(
-    const std::string &attrname) const
+const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
 {
   return attributes_.find(attrname)->second;
 }
@@ -101,7 +100,7 @@ XMLNode &XMLNode::GetSubNodeByTag(
     }
   }
   err_info.first  = tag_name;
-  err_info.second = XMLNode::NodeStat::node_good;
+  err_info.second = XMLNode::NodeStat::node_bad;
   err_list.push_back(err_info);
   return subnodes_[0];
 }

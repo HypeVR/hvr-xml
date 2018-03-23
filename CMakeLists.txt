@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 
-project(hvr-red LANGUAGES CXX)
+project(hvr-xml LANGUAGES CXX)
 
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
@@ -132,9 +132,6 @@ add_subdirectory(apps)
 add_subdirectory(doc)
 
 option(UNIT_TEST "Run unit tests" ON)
-
-option(BUILD_EXPORT "Build only Richard modules" OFF)
-option(BUILD_STREAM "Build only Arunabh modules" OFF)
 
 if(UNIT_TEST AND (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR}))
   add_subdirectory(unit-test)
