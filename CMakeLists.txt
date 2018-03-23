@@ -1,0 +1,153 @@
+cmake_minimum_required(VERSION 3.9)
+
+project(hvr-red LANGUAGES CXX)
+
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
+if(MSVC)
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+endif()
+
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /MP /WX /sdl")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127 /wd4267 /wd4244")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44062")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44191")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44242")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44254")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44255")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44263")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44264")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44265")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44266")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44287")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44289")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44296")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44302")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44311")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44339")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44342")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44350")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44355")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44370")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44371")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44388")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44412")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44431")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44435")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44437")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44444")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44471")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44472")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44536")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44545")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44546")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44547")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44548")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44555")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44557")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44574")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44628")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44640")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44668")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44682")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44686")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44692")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44738")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44786")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44826")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44837")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44905")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44906")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44917")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44928")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44931")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44946")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44962")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44986")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44987")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44988")
+elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -fsigned-char")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -freg-struct-return -Wextra")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpointer-arith -Wcast-qual -Wshadow")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpedantic -pthread")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Werror -fsigned-char")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wpedantic")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpointer-arith -Wcast-qual -Wshadow")
+endif()
+
+if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR CMAKE_COMPILER_IS_GNUCC
+    OR CMAKE_COMPILER_IS_GNUCXX)
+  if(CMAKE_BUILD_TYPE STREQUAL "DEBUG")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Winline")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
+  endif()
+endif()
+
+message(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+
+set(CUDA_PROPAGATE_HOST_FLAGS OFF)
+set(CUDA_WARNING "cross-execution-space-call")
+# new flags introduced in CUDA 9
+# set(CUDA_WARNING "reorder,cross-execution-space-call,deprecated-declarations")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Werror ${CUDA_WARNING} -restrict")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_61,code=sm_61")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_52,code=sm_52")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_35,code=sm_35")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30")
+
+message(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS}")
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+if(NOT TARGET uninstall)
+  configure_file(
+      ${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in
+      ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+      IMMEDIATE @ONLY)
+
+  add_custom_target(uninstall
+      COMMAND ${CMAKE_COMMAND} -P
+      ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+endif()
+
+if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+  export(TARGETS FILE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Targets.cmake)
+endif()
+
+file(WRITE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
+    "include(CMakeFindDependencyMacro)\n"
+    "include(\${CMAKE_CURRENT_LIST_DIR}/${CMAKE_PROJECT_NAME}Targets.cmake)\n")
+
+add_subdirectory(modules)
+add_subdirectory(apps)
+add_subdirectory(doc)
+
+option(UNIT_TEST "Run unit tests" ON)
+
+option(BUILD_EXPORT "Build only Richard modules" OFF)
+option(BUILD_STREAM "Build only Arunabh modules" OFF)
+
+if(UNIT_TEST AND (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR}))
+  add_subdirectory(unit-test)
+endif()
+
+install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
+        DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
+
+install(EXPORT ${CMAKE_PROJECT_NAME}Targets NAMESPACE hvr::
+        DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
+
+if(NOT TARGET install-app)
+  add_custom_target(install-app COMMAND
+                    "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=install-app
+                    -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
+endif()

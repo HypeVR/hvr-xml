@@ -1,0 +1,5 @@
+/*!
+  \addtogroup XMLParser XMLParser
+
+  The \b Parser and \b Writer for XML format files
+*/

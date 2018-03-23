@@ -1,0 +1,8 @@
+<CONFIG>
+    <TEST01 attr="yes">
+        <VAL>1</VAL>
+    </TEST01>
+    <TEST02 attr="no">
+        <VAL>2</VAL>
+    </TEST02>
+</CONFIG>

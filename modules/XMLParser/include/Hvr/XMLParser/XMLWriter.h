@@ -1,0 +1,75 @@
+// Copyright @ 2016 Caoyang Jiang
+
+#ifndef MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLWRITER_H_
+#define MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLWRITER_H_
+
+HVR_WINDOWS_DISABLE_ALL_WARNING
+#include <tinyxml2.h>
+HVR_WINDOWS_ENABLE_ALL_WARNING
+
+#include <map>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "Hvr/XMLParser/XMLNode.h"
+
+namespace hvr
+{
+/**
+ * @brief      Parse XML file into tree-structured nodes.
+ * @ingroup    XMLParser
+ */
+class XMLWriter
+{
+ public:
+  /**
+   * @brief      Default constructor
+   */
+  HVR_XMLPARSER_DLL
+  XMLWriter();
+
+  /**
+   * @brief      Constructor that passes a hvr::XMLNode ojbect directly
+   *
+   * @param[in]  in_node  In node
+   */
+  HVR_XMLPARSER_DLL
+  explicit XMLWriter(const std::shared_ptr<XMLNode> in_node);
+
+  /**
+   * @brief      Default destructor
+   */
+  HVR_XMLPARSER_DLL
+  ~XMLWriter();
+
+  /**
+   * @brief      Assign the hvr::XMLNode object that holds on the info
+   *
+   * @param[in]  in_node  In node
+   *
+   * @return     whether the operation succeeds
+   */
+  HVR_XMLPARSER_DLL
+  bool AssignXMLNode(const std::shared_ptr<XMLNode> in_node);
+
+  /**
+   * @brief      Write the info to a .xml file with given path
+   *
+   * @param[in]  out_path  The out path
+   *
+   * @return     whether the operation succeeds
+   */
+  HVR_XMLPARSER_DLL
+  bool Write(const std::string &out_path);
+
+ private:
+  bool TranferInfo();
+  bool RecurseAppend(XMLNode &parent_node, tinyxml2::XMLElement *parent_elem);
+
+  tinyxml2::XMLDocument wrtr_;
+  std::shared_ptr<XMLNode> root_;
+};
+}  // namespace hvr
+
+#endif  // MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLWRITER_H_
