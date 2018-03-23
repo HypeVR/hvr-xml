@@ -79,7 +79,7 @@ bool InputParser(int argc,
     std::cout << "amount of inputs passing in not matching accepted range"
               << std::endl;
     std::cout << "Please input a xml file with the layout same out as "
-                 "/data/xmlparser_data/sample_data/sample.xml"
+                 "sample.xml"
               << std::endl;
 
     std::cout << "-i   input xml file path" << std::endl;
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
     std::cout << "amount of inputs passing in not matching accepted range"
               << std::endl;
     std::cout << "Please input a xml file with the layout same out as "
-                 "/data/xmlparser_data/sample_data/sample.xml"
+                 "sample.xml"
               << std::endl;
 
     std::cout << "-i   input xml file path" << std::endl;
