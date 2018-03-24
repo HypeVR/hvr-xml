@@ -51,13 +51,12 @@ const std::string &XMLNode::GetValue() const
   return value_;
 }
 
-const std::string &XMLNode::LookUpAttrPropertyByName(
-    const std::string &attrname) const
+const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
 {
   return attributes_.find(attrname)->second;
 }
 
-const std::map<const std::string, std::string> &XMLNode::GetAttrs() const
+const std::map<std::string, std::string> &XMLNode::GetAttrs() const
 {
   return attributes_;
 }
@@ -101,7 +100,7 @@ XMLNode &XMLNode::GetSubNodeByTag(
     }
   }
   err_info.first  = tag_name;
-  err_info.second = XMLNode::NodeStat::node_good;
+  err_info.second = XMLNode::NodeStat::node_bad;
   err_list.push_back(err_info);
   return subnodes_[0];
 }
@@ -178,8 +177,7 @@ bool XMLNode::QueryText(std::string &txt_val) const
   return false;
 }
 
-bool XMLNode::QueryAttributes(
-    std::map<const std::string, std::string> &attrs) const
+bool XMLNode::QueryAttributes(std::map<std::string, std::string> &attrs) const
 {
   if (CheckNodeValidity())
   {

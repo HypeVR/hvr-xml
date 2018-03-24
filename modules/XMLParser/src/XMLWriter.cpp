@@ -58,10 +58,10 @@ bool XMLWriter::TranferInfo()
     {
       tmp_val = "";
     }
-    std::map<const std::string, std::string> tmp_attrs = cur_node.GetAttrs();
+    std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
     cur_elem->SetText(tmp_val.c_str());
-    for (std::map<const std::string, std::string>::const_iterator it =
+    for (std::map<std::string, std::string>::const_iterator it =
              tmp_attrs.begin();
          it != tmp_attrs.end();
          it++)
@@ -91,10 +91,10 @@ bool XMLWriter::RecurseAppend(XMLNode &parent_node,
     {
       tmp_val = "";
     }
-    std::map<const std::string, std::string> tmp_attrs = cur_node.GetAttrs();
+    std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
     cur_elem->SetText(tmp_val.c_str());
-    for (std::map<const std::string, std::string>::const_iterator it =
+    for (std::map<std::string, std::string>::const_iterator it =
              tmp_attrs.begin();
          it != tmp_attrs.end();
          it++)

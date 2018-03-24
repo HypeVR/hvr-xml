@@ -29,6 +29,144 @@ void XMLParserTest::TearDown()
 {
 }
 
+TEST_F(XMLParserTest, hvr_parser_XMLNode_Pushback_test)
+{
+  hvr::XMLNode node_p;
+  hvr::XMLNode node_c;
+  node_p.Pushback(node_c);
+  ASSERT_EQ(static_cast<int>(node_p.GetNumOfSubNodes()), 1);
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_SetTag_test)
+{
+  hvr::XMLNode node_p;
+  std::string nam = "ABC";
+  node_p.SetTag(nam);
+  ASSERT_EQ(node_p.GetTag(), "ABC");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_SetValue_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetValue("123");
+  ASSERT_EQ(node_p.GetValue(), "123");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_AddAttr_test)
+{
+  hvr::XMLNode node_p;
+  node_p.AddAttr("name", "Richard");
+  ASSERT_EQ(static_cast<int>(node_p.GetNumOfAttr()), 1);
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetTag_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ((*root)[1].GetTag(), "TEST02");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetValue_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ((*root)[1][0].GetValue(), "3");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrByName_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ((*root)[0].GetAttrByName("attr"), "yes");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrs_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ((*root)[1].GetAttrs().at("attr"), "no");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetNumOfAttr_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ(static_cast<int>((*root)[1].GetNumOfAttr()), 1);
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetNumOfSubNodes_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ(static_cast<int>((*root)[0].GetNumOfSubNodes()), 2);
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
+
+  hvr::XMLNode &node = root->GetSubNodeByIndex(1, err_list);
+
+  ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 2);
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
+
+  hvr::XMLNode &node = root->GetSubNodeByTag("TEST02", err_list);
+
+  ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 2);
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_NodeErrorChecker_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
+
+  hvr::XMLNode &node = root->GetSubNodeByTag("TEST03", err_list);
+  bool err_stat      = node.NodeErrorChecker(err_list);
+  ASSERT_EQ(err_stat, false);
+}
+
 TEST_F(XMLParserTest, hvr_parser_XMLWriter_Write_test)
 {
   hvr::XMLParser cur_prsr;
@@ -76,7 +214,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLWriter_Write_test)
 
   std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
 
-  std::map<const std::string, std::string> attrs =
+  std::map<std::string, std::string> attrs =
       root->GetSubNodeByTag("TEST02", err_list).GetAttrs();
 
   ASSERT_EQ(attrs["attr"], "no");
@@ -162,11 +300,22 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryAttributes_test)
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
   hvr::XMLNode &tmp_node = (*root)[2][1];
-  std::map<const std::string, std::string> attrs;
+  std::map<std::string, std::string> attrs;
   ASSERT_EQ(tmp_node.QueryAttributes(attrs), false);
 
   hvr::XMLNode &tmp_node2 = (*root)["TEST02"];
-  std::map<const std::string, std::string> attrs2;
+  std::map<std::string, std::string> attrs2;
   ASSERT_EQ(tmp_node2.QueryAttributes(attrs2), true);
   ASSERT_EQ(attrs2["attr"], "no");
+}
+
+TEST_F(XMLParserTest, hvr_parser_XMLParser__test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
 }

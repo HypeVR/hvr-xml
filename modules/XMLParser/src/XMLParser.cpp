@@ -61,27 +61,6 @@ bool XMLParser::Parse(const std::string filename)
   }
 }
 
-void XMLParser::RecursePrint(XMLNode &node)
-{
-  std::cout << node.GetTag() << ": " << node.GetValue() << std::endl;
-  std::cout << "|-" << std::endl;
-
-  for (std::map<const std::string, std::string>::const_iterator it =
-           node.GetAttrs().begin();
-       it != node.GetAttrs().end();
-       it++)
-  {
-    std::cout << "  AttrName: " << it->first
-              << " , AttrProperty: " << it->second << std::endl;
-  }
-
-  for (std::size_t sz = 0; sz < node.GetNumOfSubNodes(); sz++)
-  {
-    std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
-    RecursePrint(node.GetSubNodeByIndex(sz, err_list));
-  }
-}
-
 std::shared_ptr<XMLNode> &XMLParser::GetRoot()
 {
   return root_;

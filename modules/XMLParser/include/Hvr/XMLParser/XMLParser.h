@@ -43,13 +43,6 @@ class XMLParser
   HVR_XMLPARSER_DLL bool Parse(const std::string filename);
 
   /**
-   * @brief      Recursively printing node information.
-   *
-   * @param[in]  node a XML node.
-   */
-  HVR_XMLPARSER_DLL static void RecursePrint(XMLNode &node);
-
-  /**
    * @brief      Gets the root XML node.
    *
    * @return     The root XML node.
