@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 project(hvr_xmlparser)
 
 if(MSVC)
+  set(DLLIMPORT "__declspec(dllimport)")
   set(DLLEXPORT "__declspec(dllexport)")
   set(DISABLE "__pragma(warning(push,0))")
   set(ENABLE "__pragma(warning(pop))")
@@ -34,7 +35,7 @@ find_package( Boost COMPONENTS system REQUIRED )
 # Library for logging
 find_package( glog REQUIRED )
 
-add_library(${PROJECT_NAME} STATIC ${PROJECT_SRCS}
+add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS}
                                     ${PROJECT_INCS}
                                     ${PROJECT_INFO}
                                     )
