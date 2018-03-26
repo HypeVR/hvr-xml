@@ -76,7 +76,7 @@ install(FILES
   ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLNode.h
   ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLParser.h
   ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLWriter.h
-  DESTINATION include/Hvr/HvrXmlParser)
+  DESTINATION include/Hvr/XMLParser)
 
 export(TARGETS
         ${PROJECT_NAME}
