@@ -33,7 +33,7 @@ find_package(tinyxml2 REQUIRED)
 # Library for lock-free queue
 find_package( Boost COMPONENTS system REQUIRED )
 # Library for logging
-find_package( glog REQUIRED )
+# find_package( glog REQUIRED )
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS}
                                     ${PROJECT_INCS}
@@ -59,7 +59,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC)
 
 target_link_libraries(${PROJECT_NAME}
-                      glog::glog tinyxml2)
+                      # glog::glog
+                      tinyxml2
+                      )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY
             FOLDER ${CMAKE_PROJECT_NAME}/modules)
@@ -74,7 +76,7 @@ install(FILES
   ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLNode.h
   ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLParser.h
   ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLWriter.h
-  DESTINATION include/Hvr/DashVideoDecoder)
+  DESTINATION include/Hvr/HvrXmlParser)
 
 export(TARGETS
         ${PROJECT_NAME}
@@ -83,6 +85,6 @@ export(TARGETS
 file(APPEND ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
     "find_dependency(tinyxml2 REQUIRED)\n"
     "find_dependency( Boost COMPONENTS system REQUIRED )\n"
-    "find_dependency( glog REQUIRED )\n"
+    # "find_dependency( glog REQUIRED )\n"
     )
 
