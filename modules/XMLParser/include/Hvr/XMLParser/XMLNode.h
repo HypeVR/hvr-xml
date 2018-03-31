@@ -81,14 +81,28 @@ class XMLNode
 
   /**
    * @brief      For attributes are known in advance, the attribute propoerty
-   *             can be retreived with this API.
+   *             can be retreived with this API. Return a string of value
+   *             "__NULL__" if the attribute doesn't exist
    *
    * @param[in]  attrname  Attribute name.
    *
-   * @return     { description_of_the_return_value }
+   * @return     The attribute by name.
    */
   HVR_XMLPARSER_DLL
   const std::string &GetAttrByName(const std::string &attrname) const;
+
+  /**
+   * @brief      For attributes are known in advance, the attribute propoerty
+   *             can be retreived by reference. If attribute doesn't exist,
+   *             function return false.
+   *
+   * @param[in]  attrname  Attribute name.
+   * @param[out] attr      The attribute value
+   *
+   * @return     whether or not attribute exist.
+   */
+  HVR_XMLPARSER_DLL
+  bool GetAttrByName(const std::string &attrname, std::string &attr) const;
 
   /**
    * @brief      Get all attributes associated with this node.
@@ -215,8 +229,9 @@ class XMLNode
   std::vector<XMLNode> subnodes_;
   std::shared_ptr<XMLNode> bad_child_;
   // Node information
-  std::string tag_   = "";
-  std::string value_ = "";
+  std::string tag_     = "";
+  std::string value_   = "";
+  std::string null_str = "__NULL__";
   std::map<std::string, std::string> attributes_;
   // std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list_;
   bool is_valid_ = true;
