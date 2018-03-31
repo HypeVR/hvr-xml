@@ -93,19 +93,6 @@ endif()
 
 message(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
-# set(CUDA_PROPAGATE_HOST_FLAGS OFF)
-# set(CUDA_WARNING "cross-execution-space-call")
-# new flags introduced in CUDA 9
-# set(CUDA_WARNING "reorder,cross-execution-space-call,deprecated-declarations")
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Werror ${CUDA_WARNING} -restrict")
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_61,code=sm_61")
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_52,code=sm_52")
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_50,code=sm_50")
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_35,code=sm_35")
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode arch=compute_30,code=sm_30")
-
-# message(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS}")
-
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 if(NOT TARGET uninstall)
