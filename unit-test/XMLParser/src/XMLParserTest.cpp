@@ -88,8 +88,12 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrByName_test)
       (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
-
+  ASSERT_EQ((*root)[0].GetAttrByName("abc"), "__NULL__");
   ASSERT_EQ((*root)[0].GetAttrByName("attr"), "yes");
+  std::string attr = "";
+  ASSERT_EQ((*root)[0].GetAttrByName("abc", attr), false);
+  (*root)[0].GetAttrByName("attr", attr);
+  ASSERT_EQ(attr, "yes");
 }
 
 TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrs_test)

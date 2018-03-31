@@ -53,7 +53,26 @@ const std::string &XMLNode::GetValue() const
 
 const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
 {
-  return attributes_.find(attrname)->second;
+  std::map<std::string, std::string>::const_iterator it =
+      attributes_.find(attrname);
+  if (it == attributes_.end())
+  {
+    return null_str;
+  }
+  return it->second;
+}
+
+bool XMLNode::GetAttrByName(const std::string &attrname,
+                            std::string &attr) const
+{
+  std::map<std::string, std::string>::const_iterator it =
+      attributes_.find(attrname);
+  if (it == attributes_.end())
+  {
+    return false;
+  }
+  attr = it->second;
+  return true;
 }
 
 const std::map<std::string, std::string> &XMLNode::GetAttrs() const
