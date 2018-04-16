@@ -246,6 +246,10 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
   std::string val        = "";
   ASSERT_EQ(tmp_node.QueryText(val), true);
   ASSERT_EQ(val, "4");
+  const hvr::XMLNode tmp_node_const = (*root)[1][1];
+  val                               = "";
+  ASSERT_EQ(tmp_node_const.QueryText(val), true);
+  ASSERT_EQ(val, "4");
 }
 
 TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
@@ -259,6 +263,10 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
   hvr::XMLNode &tmp_node = (*root)["TEST02"]["VAL2"];
   std::string val        = "";
   ASSERT_EQ(tmp_node.QueryText(val), true);
+  ASSERT_EQ(val, "4");
+  const hvr::XMLNode tmp_node_const = (*root)["TEST02"]["VAL2"];
+  val                               = "";
+  ASSERT_EQ(tmp_node_const.QueryText(val), true);
   ASSERT_EQ(val, "4");
 }
 

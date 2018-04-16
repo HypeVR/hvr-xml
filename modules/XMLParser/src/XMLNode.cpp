@@ -155,7 +155,6 @@ bool XMLNode::CheckNodeValidity() const
 
 XMLNode &XMLNode::operator[](int idx)
 {
-  std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
   int child_cnt = GetNumOfSubNodes();
   if (idx > child_cnt - 1 || CheckNodeValidity() != true)
   {
@@ -163,7 +162,22 @@ XMLNode &XMLNode::operator[](int idx)
     bad_child_->SetNodeValidity(false);
     return *bad_child_;
   }
-  XMLNode &tmp_node = GetSubNodeByIndex(idx, err_list);
+  XMLNode &tmp_node = subnodes_[idx];
+
+  return tmp_node;
+}
+
+XMLNode XMLNode::operator[](int idx) const
+{
+  std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
+  int child_cnt = GetNumOfSubNodes();
+  if (idx > child_cnt - 1 || CheckNodeValidity() != true)
+  {
+    std::shared_ptr<XMLNode> bad_child = std::make_shared<XMLNode>();
+    bad_child->SetNodeValidity(false);
+    return *bad_child;
+  }
+  XMLNode tmp_node = subnodes_[idx];
 
   return tmp_node;
 }
@@ -183,6 +197,23 @@ XMLNode &XMLNode::operator[](const std::string &tag)
   bad_child_ = std::make_shared<XMLNode>();
   bad_child_->SetNodeValidity(false);
   return *bad_child_;
+}
+
+XMLNode XMLNode::operator[](const std::string &tag) const
+{
+  if (CheckNodeValidity())
+  {
+    for (int i = 0; i < static_cast<int>(GetNumOfSubNodes()); i++)
+    {
+      if (subnodes_[i].GetTag() == tag)
+      {
+        return subnodes_[i];
+      }
+    }
+  }
+  std::shared_ptr<XMLNode> bad_child = std::make_shared<XMLNode>();
+  bad_child->SetNodeValidity(false);
+  return *bad_child;
 }
 
 bool XMLNode::QueryText(std::string &txt_val) const
