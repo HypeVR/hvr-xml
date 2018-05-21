@@ -331,3 +331,15 @@ TEST_F(XMLParserTest, hvr_parser_XMLParser__test)
 
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
 }
+
+TEST_F(XMLParserTest, hvr_parser_XMLNode_Clear_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
+  root->Clear();
+  ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 0);
+}

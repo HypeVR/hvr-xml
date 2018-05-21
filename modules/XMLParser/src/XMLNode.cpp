@@ -25,6 +25,11 @@ void XMLNode::Pushback(const XMLNode &subnode)
   subnodes_.push_back(subnode);
 }
 
+void XMLNode::Clear()
+{
+  subnodes_.clear();
+}
+
 void XMLNode::SetTag(const std::string &tag)
 {
   tag_ = tag;
