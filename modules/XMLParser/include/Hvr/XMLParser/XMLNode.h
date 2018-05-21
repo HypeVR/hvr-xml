@@ -37,6 +37,12 @@ class XMLNode
   void Pushback(const XMLNode &subnode);
 
   /**
+   * @brief      Delete all subnodes
+   */
+  HVR_XMLPARSER_DLL
+  void Clear();
+
+  /**
    * @brief      Sets the element tag for current node. For example,  <tag ... >
    *             </tag>
    *
