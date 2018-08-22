@@ -192,7 +192,7 @@ class XMLNode
    * @return     is_valid_ value
    */
   HVR_XMLPARSER_DLL
-  bool CheckNodeValidity() const;
+  bool IsValid() const;
 
   /**
    * @brief      Retrieve the child node based on input index value

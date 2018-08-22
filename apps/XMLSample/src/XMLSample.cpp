@@ -130,7 +130,7 @@ int main(int argc, char **argv)
       }
       std::string new_val     = "52";
       hvr::XMLNode &val1_node = root_node[i]["VAL1"];
-      if (val1_node.CheckNodeValidity())
+      if (val1_node.IsValid())
       {
         val1_node.SetValue(new_val);
         std::cout << "The text value of the node VAL1 is now 52" << std::endl;

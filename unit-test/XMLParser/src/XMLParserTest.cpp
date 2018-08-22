@@ -274,7 +274,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_CheckNodeValidity_test)
 {
   hvr::XMLNode tmp_node;
 
-  ASSERT_EQ(tmp_node.CheckNodeValidity(), true);
+  ASSERT_EQ(tmp_node.IsValid(), true);
 }
 
 TEST_F(XMLParserTest, hvr_parser_XMLNode_SetNodeValidity_test)
@@ -282,7 +282,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_SetNodeValidity_test)
   hvr::XMLNode tmp_node;
   tmp_node.SetNodeValidity(false);
 
-  ASSERT_EQ(tmp_node.CheckNodeValidity(), false);
+  ASSERT_EQ(tmp_node.IsValid(), false);
 }
 
 TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryText_test)
