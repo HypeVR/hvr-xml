@@ -23,11 +23,6 @@ if((NOT TARGET test) AND (NOT TARGET RUN_UNIT_TEST))
                   ${CMAKE_BINARY_DIR}/gtest-build
                   EXCLUDE_FROM_ALL)
 
-  # Add the gtest include directory, since gtest
-  # doesn't add that dependency to its gtest target
-  target_include_directories(gtest INTERFACE
-                            "${CMAKE_BINARY_DIR}/gtest-src/googletest/include")
-
   if(MSVC)
     add_custom_target(RUN_UNIT_TEST
         COMMAND ${CMAKE_BINARY_DIR}//bin//$<CONFIGURATION>//XMLParserTest.exe)
