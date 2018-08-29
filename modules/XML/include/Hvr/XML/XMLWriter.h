@@ -1,7 +1,7 @@
 // Copyright @ 2016 Caoyang Jiang
 
-#ifndef MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLWRITER_H_
-#define MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLWRITER_H_
+#ifndef MODULES_XML_INCLUDE_HVR_XML_XMLWRITER_H_
+#define MODULES_XML_INCLUDE_HVR_XML_XMLWRITER_H_
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <tinyxml2.h>
@@ -12,7 +12,7 @@ HVR_WINDOWS_ENABLE_ALL_WARNING
 #include <string>
 #include <vector>
 
-#include "Hvr/XMLParser/XMLNode.h"
+#include "Hvr/XML/XMLNode.h"
 
 namespace hvr
 {
@@ -26,7 +26,7 @@ class XMLWriter
   /**
    * @brief      Default constructor
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLWriter();
 
   /**
@@ -34,13 +34,13 @@ class XMLWriter
    *
    * @param[in]  in_node  In node
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   explicit XMLWriter(const std::shared_ptr<XMLNode> in_node);
 
   /**
    * @brief      Default destructor
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   ~XMLWriter();
 
   /**
@@ -50,7 +50,7 @@ class XMLWriter
    *
    * @return     whether the operation succeeds
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool AssignXMLNode(const std::shared_ptr<XMLNode> in_node);
 
   /**
@@ -60,7 +60,7 @@ class XMLWriter
    *
    * @return     whether the operation succeeds
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool Write(const std::string &out_path);
 
  private:
@@ -72,4 +72,4 @@ class XMLWriter
 };
 }  // namespace hvr
 
-#endif  // MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLWRITER_H_
+#endif  // MODULES_XML_INCLUDE_HVR_XML_XMLWRITER_H_

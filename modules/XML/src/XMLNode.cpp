@@ -1,6 +1,6 @@
-// Copyright @ 2016 Caoyang Jiang
+// Copyright @ 2016 Caoyang Jiang & Qi Yao
 
-#include "Hvr/XMLParser/XMLNode.h"
+#include "Hvr/XML/XMLNode.h"
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <iostream>
@@ -20,7 +20,11 @@ XMLNode::~XMLNode()
 {
 }
 
-void XMLNode::Pushback(const XMLNode &subnode)
+XMLNode::XMLNode(const std::string &tag) : tag_(tag)
+{
+}
+
+void XMLNode::PushBack(const XMLNode &subnode)
 {
   subnodes_.push_back(subnode);
 }

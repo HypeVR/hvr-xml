@@ -1,4 +1,4 @@
-// Copyright 2017 Arunabh Sharma, Qi Yao
+// Copyright 2017 Qi Yao
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <iostream>
@@ -8,9 +8,8 @@ HVR_WINDOWS_DISABLE_ALL_WARNING
 #include "boost/filesystem.hpp"
 
 HVR_WINDOWS_ENABLE_ALL_WARNING
-
-#include "Hvr/XMLParser/XMLParser.h"
-#include "Hvr/XMLParser/XMLWriter.h"
+#include "Hvr/XML/XMLParser.h"
+#include "Hvr/XML/XMLWriter.h"
 
 void DirCreator(const std::string &path_to_create)
 {
@@ -137,6 +136,12 @@ int main(int argc, char **argv)
       }
     }
 
+    // create new node and append to parent example
+    hvr::XMLNode additional_node("EXTRA");
+    additional_node.SetValue("Nothing to see here!");
+    root_node.PushBack(additional_node);
+
+    // writing to file example
     std::string out_folder = out_path.substr(0, in_path.find_last_of("/\\"));
     DirCreator(out_folder);
 

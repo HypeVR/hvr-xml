@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(hvr_xmlparser)
+project(hvr_xml)
 
 if(MSVC)
   set(DLLIMPORT "__declspec(dllimport)")
@@ -15,9 +15,9 @@ ${PROJECT_SOURCE_DIR}/src/XMLWriter.cpp
 )
 
 set(PROJECT_INCS
-${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLNode.h
-${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLParser.h
-${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLWriter.h
+${PROJECT_SOURCE_DIR}/include/Hvr/XML/XMLNode.h
+${PROJECT_SOURCE_DIR}/include/Hvr/XML/XMLParser.h
+${PROJECT_SOURCE_DIR}/include/Hvr/XML/XMLWriter.h
 )
 
 set(PROJECT_INFO
@@ -31,7 +31,7 @@ source_group("src"     FILES ${PROJECT_SRCS})
 # Library for parsing Dash media presentation description
 find_package(tinyxml2 REQUIRED)
 # Library for lock-free queue
-find_package( Boost COMPONENTS system REQUIRED )
+# find_package( Boost COMPONENTS system REQUIRED )
 # Library for logging
 # find_package( glog REQUIRED )
 
@@ -47,10 +47,10 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
                           HVR_WINDOWS_ENABLE_ALL_WARNING=${ENABLE})
 
 target_compile_definitions(${PROJECT_NAME} INTERFACE
-                          HVR_XMLPARSER_DLL=${DLLIMPORT})
+                          HVR_XML_DLL=${DLLIMPORT})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-                          HVR_XMLPARSER_DLL=${DLLEXPORT})
+                          HVR_XML_DLL=${DLLEXPORT})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -73,10 +73,10 @@ install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin COMPONENT install-app)
 
 install(FILES
-  ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLNode.h
-  ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLParser.h
-  ${PROJECT_SOURCE_DIR}/include/Hvr/XMLParser/XMLWriter.h
-  DESTINATION include/Hvr/XMLParser)
+  ${PROJECT_SOURCE_DIR}/include/Hvr/XML/XMLNode.h
+  ${PROJECT_SOURCE_DIR}/include/Hvr/XML/XMLParser.h
+  ${PROJECT_SOURCE_DIR}/include/Hvr/XML/XMLWriter.h
+  DESTINATION include/Hvr/XML)
 
 export(TARGETS
         ${PROJECT_NAME}
@@ -84,7 +84,7 @@ export(TARGETS
 
 file(APPEND ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
     "find_dependency(tinyxml2 REQUIRED)\n"
-    "find_dependency( Boost COMPONENTS system REQUIRED )\n"
+    # "find_dependency( Boost COMPONENTS system REQUIRED )\n"
     # "find_dependency( glog REQUIRED )\n"
     )
 

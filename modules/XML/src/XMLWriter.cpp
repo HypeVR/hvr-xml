@@ -1,6 +1,6 @@
-// Copyright @ 2016 Caoyang Jiang
+// Copyright @ 2016 Caoyang Jiang & Qi Yao
 
-#include "Hvr/XMLParser/XMLWriter.h"
+#include "Hvr/XML/XMLWriter.h"
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <iostream>

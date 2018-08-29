@@ -1,6 +1,6 @@
 // Copyright 2018 Qi Yao
 
-#include "XMLParserTest.h"
+#include "XMLTest.h"
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <string>
@@ -8,36 +8,36 @@ HVR_WINDOWS_DISABLE_ALL_WARNING
 #include "boost/filesystem.hpp"
 HVR_WINDOWS_ENABLE_ALL_WARNING
 
-#include "Hvr/XMLParser/XMLParser.h"
-#include "Hvr/XMLParser/XMLWriter.h"
+#include "Hvr/XML/XMLParser.h"
+#include "Hvr/XML/XMLWriter.h"
 
 extern std::string exe_path;
 
-XMLParserTest::XMLParserTest()
+XMLTest::XMLTest()
 {
 }
 
-XMLParserTest::~XMLParserTest()
+XMLTest::~XMLTest()
 {
 }
 
-void XMLParserTest::SetUp()
+void XMLTest::SetUp()
 {
 }
 
-void XMLParserTest::TearDown()
+void XMLTest::TearDown()
 {
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_Pushback_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_Pushback_test)
 {
   hvr::XMLNode node_p;
   hvr::XMLNode node_c;
-  node_p.Pushback(node_c);
+  node_p.PushBack(node_c);
   ASSERT_EQ(static_cast<int>(node_p.GetNumOfSubNodes()), 1);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_SetTag_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_SetTag_test)
 {
   hvr::XMLNode node_p;
   std::string nam = "ABC";
@@ -45,21 +45,21 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_SetTag_test)
   ASSERT_EQ(node_p.GetTag(), "ABC");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_SetValue_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_SetValue_test)
 {
   hvr::XMLNode node_p;
   node_p.SetValue("123");
   ASSERT_EQ(node_p.GetValue(), "123");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_AddAttr_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_AddAttr_test)
 {
   hvr::XMLNode node_p;
   node_p.AddAttr("name", "Richard");
   ASSERT_EQ(static_cast<int>(node_p.GetNumOfAttr()), 1);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetTag_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetTag_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -70,7 +70,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetTag_test)
   ASSERT_EQ((*root)[1].GetTag(), "TEST02");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetValue_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetValue_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -81,7 +81,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetValue_test)
   ASSERT_EQ((*root)[1][0].GetValue(), "3");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrByName_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrByName_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -96,7 +96,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrByName_test)
   ASSERT_EQ(attr, "yes");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrs_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrs_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -107,7 +107,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetAttrs_test)
   ASSERT_EQ((*root)[1].GetAttrs().at("attr"), "no");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetNumOfAttr_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetNumOfAttr_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -118,7 +118,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetNumOfAttr_test)
   ASSERT_EQ(static_cast<int>((*root)[1].GetNumOfAttr()), 1);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetNumOfSubNodes_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetNumOfSubNodes_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -129,7 +129,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetNumOfSubNodes_test)
   ASSERT_EQ(static_cast<int>((*root)[0].GetNumOfSubNodes()), 2);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -143,7 +143,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
   ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 2);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -157,7 +157,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
   ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 2);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_NodeErrorChecker_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_NodeErrorChecker_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -171,7 +171,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_NodeErrorChecker_test)
   ASSERT_EQ(err_stat, false);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLWriter_Write_test)
+TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -234,7 +234,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLWriter_Write_test)
   ASSERT_EQ(root->NodeErrorChecker(err_list), true);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -252,7 +252,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
   ASSERT_EQ(val, "4");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -270,14 +270,14 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
   ASSERT_EQ(val, "4");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_CheckNodeValidity_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_CheckNodeValidity_test)
 {
   hvr::XMLNode tmp_node;
 
   ASSERT_EQ(tmp_node.IsValid(), true);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_SetNodeValidity_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_SetNodeValidity_test)
 {
   hvr::XMLNode tmp_node;
   tmp_node.SetNodeValidity(false);
@@ -285,7 +285,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_SetNodeValidity_test)
   ASSERT_EQ(tmp_node.IsValid(), false);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryText_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_QueryText_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -303,7 +303,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryText_test)
   ASSERT_EQ(val, "1");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryAttributes_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_QueryAttributes_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -321,7 +321,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLNode_QueryAttributes_test)
   ASSERT_EQ(attrs2["attr"], "no");
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLParser__test)
+TEST_F(XMLTest, hvr_parser_XMLParser__test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -332,7 +332,7 @@ TEST_F(XMLParserTest, hvr_parser_XMLParser__test)
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
 }
 
-TEST_F(XMLParserTest, hvr_parser_XMLNode_Clear_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_Clear_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
