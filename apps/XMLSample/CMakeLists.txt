@@ -20,7 +20,7 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
                           HVR_WINDOWS_DISABLE_ALL_WARNING=${DISABLE}
                           HVR_WINDOWS_ENABLE_ALL_WARNING=${ENABLE})
 
-target_link_libraries(${PROJECT_NAME} hvr_xmlparser Boost::filesystem)
+target_link_libraries(${PROJECT_NAME} hvr_xml Boost::filesystem)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER ${CMAKE_PROJECT_NAME}/apps)
 
@@ -37,10 +37,10 @@ if(MSVC)
 elseif((CMAKE_CXX_COMPILER_ID MATCHES "Clang") OR CMAKE_COMPILER_IS_GNUCC
     OR CMAKE_COMPILER_IS_GNUCXX)
 
-  file(GLOB XMLPARSER_DATA ${PROJECT_SOURCE_DIR}/sample.xml)
+  file(GLOB XML_DATA ${PROJECT_SOURCE_DIR}/sample.xml)
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/xmlparserdata.cmake
-    "file(COPY ${XMLPARSER_DATA} DESTINATION
+    "file(COPY ${XML_DATA} DESTINATION
     ${CMAKE_CURRENT_BINARY_DIR}/data
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE GROUP_WRITE GROUP_READ WORLD_READ)")
 

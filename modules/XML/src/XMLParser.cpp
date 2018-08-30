@@ -1,6 +1,6 @@
-// Copyright @ 2016 Caoyang Jiang
+// Copyright @ 2016 Caoyang Jiang & Qi Yao
 
-#include "Hvr/XMLParser/XMLParser.h"
+#include "Hvr/XML/XMLParser.h"
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <iostream>
@@ -82,12 +82,12 @@ bool XMLParser::RecurseProc(XMLNode &parent_node)
     }
     if (i.ToElement()->GetText())
     {
-      node.SetValue(std::string(i.ToElement()->GetText()));
+      node.SetText(std::string(i.ToElement()->GetText()));
       // std::string cur_text = std::string(i.ToElement()->GetText());
     }
     else
     {
-      node.SetValue("__EMPTY__");
+      node.SetText("__EMPTY__");
     }
 
     reader_t_ = i.ToElement();
@@ -96,7 +96,7 @@ bool XMLParser::RecurseProc(XMLNode &parent_node)
     {
       RecurseProc(node);
     }
-    parent_node.Pushback(node);
+    parent_node.PushBack(node);
   }
 
   return true;

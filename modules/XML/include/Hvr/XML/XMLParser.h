@@ -1,7 +1,7 @@
 // Copyright @ 2016 Caoyang Jiang
 
-#ifndef MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLPARSER_H_
-#define MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLPARSER_H_
+#ifndef MODULES_XML_INCLUDE_HVR_XML_XMLPARSER_H_
+#define MODULES_XML_INCLUDE_HVR_XML_XMLPARSER_H_
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <tinyxml2.h>
@@ -12,7 +12,7 @@ HVR_WINDOWS_ENABLE_ALL_WARNING
 #include <string>
 #include <vector>
 
-#include "Hvr/XMLParser/XMLNode.h"
+#include "Hvr/XML/XMLNode.h"
 
 namespace hvr
 {
@@ -26,12 +26,12 @@ class XMLParser
   /**
    * @brief      Default Constructor
    */
-  HVR_XMLPARSER_DLL XMLParser();
+  HVR_XML_DLL XMLParser();
 
   /**
    * @brief      Default Destructor
    */
-  HVR_XMLPARSER_DLL ~XMLParser();
+  HVR_XML_DLL ~XMLParser();
 
   /**
    * @brief      Parse a XML file into tree data structure.
@@ -40,14 +40,14 @@ class XMLParser
    *
    * @return     True if parsing successful, False otherwise.
    */
-  HVR_XMLPARSER_DLL bool Parse(const std::string filename);
+  HVR_XML_DLL bool Parse(const std::string filename);
 
   /**
    * @brief      Gets the root XML node.
    *
    * @return     The root XML node.
    */
-  HVR_XMLPARSER_DLL std::shared_ptr<XMLNode> &GetRoot();
+  HVR_XML_DLL std::shared_ptr<XMLNode> &GetRoot();
 
  private:
   /**
@@ -74,4 +74,4 @@ class XMLParser
 };
 }  // namespace hvr
 
-#endif  // MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLPARSER_H_
+#endif  // MODULES_XML_INCLUDE_HVR_XML_XMLPARSER_H_

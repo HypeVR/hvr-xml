@@ -1,4 +1,4 @@
-// Copyright 2017 Arunabh Sharma, Qi Yao
+// Copyright 2017 Qi Yao
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <iostream>
@@ -8,9 +8,8 @@ HVR_WINDOWS_DISABLE_ALL_WARNING
 #include "boost/filesystem.hpp"
 
 HVR_WINDOWS_ENABLE_ALL_WARNING
-
-#include "Hvr/XMLParser/XMLParser.h"
-#include "Hvr/XMLParser/XMLWriter.h"
+#include "Hvr/XML/XMLParser.h"
+#include "Hvr/XML/XMLWriter.h"
 
 void DirCreator(const std::string &path_to_create)
 {
@@ -128,15 +127,33 @@ int main(int argc, char **argv)
       {
         std::cout << " Child node VAL1 has value of " << val << std::endl;
       }
-      std::string new_val     = "52";
+      int new_val             = 52;
       hvr::XMLNode &val1_node = root_node[i]["VAL1"];
       if (val1_node.IsValid())
       {
-        val1_node.SetValue(new_val);
+        val1_node.SetInt(new_val);
         std::cout << "The text value of the node VAL1 is now 52" << std::endl;
       }
     }
 
+    // create new node and append to parent example
+    hvr::XMLNode additional_node1("EXTRA1");
+    additional_node1.SetText("Nothing to see here!");
+    hvr::XMLNode additional_node2("EXTRA2");
+    additional_node2.SetInt(250);
+    hvr::XMLNode additional_node3("EXTRA3");
+    additional_node3.SetFloat(250.015036f);
+    hvr::XMLNode additional_node4("EXTRA4");
+    additional_node4.SetDouble(250.015036076549);
+    hvr::XMLNode additional_node5("EXTRA5");
+    additional_node5.SetBool(false);
+    root_node.PushBack(additional_node1);
+    root_node.PushBack(additional_node2);
+    root_node.PushBack(additional_node3);
+    root_node.PushBack(additional_node4);
+    root_node.PushBack(additional_node5);
+
+    // writing to file example
     std::string out_folder = out_path.substr(0, in_path.find_last_of("/\\"));
     DirCreator(out_folder);
 

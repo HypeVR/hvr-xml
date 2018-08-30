@@ -1,0 +1,20 @@
+<CONFIG>
+    <TEST01 attr="yes">
+        <VAL1>1</VAL1>
+        <VAL2>2</VAL2>
+        <VALTEXT>What</VALTEXT>
+        <VALINT>888</VALINT>
+        <VALFLOAT>1.234567</VALFLOAT>
+        <VALDOUBLE>9.876543210123</VALDOUBLE>
+        <VALBOOL>true</VALBOOL>
+    </TEST01>
+    <TEST02 attr="no">
+        <VAL1>3</VAL1>
+        <VAL2>4</VAL2>
+        <VALTEXT>When</VALTEXT>
+        <VALINT>666</VALINT>
+        <VALFLOAT>2.345678</VALFLOAT>
+        <VALDOUBLE>3.14159265358979</VALDOUBLE>
+        <VALBOOL>false</VALBOOL>
+    </TEST02>
+</CONFIG>

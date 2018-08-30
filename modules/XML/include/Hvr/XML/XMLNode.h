@@ -1,7 +1,7 @@
 // Copyright @ 2016 Caoyang Jiang
 
-#ifndef MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLNODE_H_
-#define MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLNODE_H_
+#ifndef MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
+#define MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
 
 #include <map>
 #include <memory>
@@ -25,21 +25,27 @@ class XMLNode
     node_bad
   };
 
-  HVR_XMLPARSER_DLL XMLNode();
-  HVR_XMLPARSER_DLL ~XMLNode();
+  HVR_XML_DLL
+  XMLNode();
+
+  HVR_XML_DLL
+  ~XMLNode();
+
+  HVR_XML_DLL
+  explicit XMLNode(const std::string &tag);
 
   /**
    * @brief      Adds a subnode.
    *
    * @param[in]  subnode  a node.
    */
-  HVR_XMLPARSER_DLL
-  void Pushback(const XMLNode &subnode);
+  HVR_XML_DLL
+  void PushBack(const XMLNode &subnode);
 
   /**
    * @brief      Delete all subnodes
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   void Clear();
 
   /**
@@ -48,7 +54,7 @@ class XMLNode
    *
    * @param[in]  tag   Element tag.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   void SetTag(const std::string &tag);
 
   /**
@@ -57,8 +63,20 @@ class XMLNode
    *
    * @param[in]  value  Element value.
    */
-  HVR_XMLPARSER_DLL
-  void SetValue(const std::string &value);
+  HVR_XML_DLL
+  void SetText(const std::string &value);
+
+  HVR_XML_DLL
+  void SetInt(const int &value);
+
+  HVR_XML_DLL
+  void SetFloat(const float &value);
+
+  HVR_XML_DLL
+  void SetDouble(const double &value);
+
+  HVR_XML_DLL
+  void SetBool(const bool &value);
 
   /**
    * @brief      Adds an element attribute.
@@ -66,7 +84,7 @@ class XMLNode
    * @param[in]  attrname      Attribute name.
    * @param[in]  attrproperty  Attribute property.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   void AddAttr(const std::string &attrname, const std::string &attrproperty);
 
   /**
@@ -74,7 +92,7 @@ class XMLNode
    *
    * @return     element tag.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   const std::string &GetTag() const;
 
   /**
@@ -82,8 +100,20 @@ class XMLNode
    *
    * @return     Element value.
    */
-  HVR_XMLPARSER_DLL
-  const std::string &GetValue() const;
+  HVR_XML_DLL
+  const std::string &GetText() const;
+
+  HVR_XML_DLL
+  int GetInt() const;
+
+  HVR_XML_DLL
+  float GetFloat() const;
+
+  HVR_XML_DLL
+  double GetDouble() const;
+
+  HVR_XML_DLL
+  bool GetBool() const;
 
   /**
    * @brief      For attributes are known in advance, the attribute propoerty
@@ -94,7 +124,7 @@ class XMLNode
    *
    * @return     The attribute by name.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   const std::string &GetAttrByName(const std::string &attrname) const;
 
   /**
@@ -107,7 +137,7 @@ class XMLNode
    *
    * @return     whether or not attribute exist.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool GetAttrByName(const std::string &attrname, std::string &attr) const;
 
   /**
@@ -115,7 +145,7 @@ class XMLNode
    *
    * @return     All attributes.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   const std::map<std::string, std::string> &GetAttrs() const;
 
   /**
@@ -123,7 +153,7 @@ class XMLNode
    *
    * @return     The number of attribute.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   size_t GetNumOfAttr() const;
 
   /**
@@ -131,7 +161,7 @@ class XMLNode
    *
    * @return     The number of subnodes.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   size_t GetNumOfSubNodes() const;
 
   /**
@@ -145,7 +175,7 @@ class XMLNode
    *
    * @return     A subnode.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLNode &GetSubNodeByIndex(
       size_t subnodeidx,
       std::vector<std::pair<std::string, XMLNode::NodeStat>> &err_list);
@@ -161,7 +191,7 @@ class XMLNode
    *
    * @return     A subnode.
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLNode &GetSubNodeByTag(
       const std::string &tag_name,
       std::vector<std::pair<std::string, XMLNode::NodeStat>> &err_list);
@@ -174,7 +204,7 @@ class XMLNode
    *
    * @return     whether there is an error in the node retrieved
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool NodeErrorChecker(
       std::vector<std::pair<std::string, XMLNode::NodeStat>> &err_list) const;
 
@@ -183,7 +213,7 @@ class XMLNode
    *
    * @param[in]  b     input value;
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   void SetNodeValidity(const bool b);
 
   /**
@@ -191,7 +221,7 @@ class XMLNode
    *
    * @return     is_valid_ value
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool IsValid() const;
 
   /**
@@ -199,7 +229,7 @@ class XMLNode
    *
    * @param[in]  idx     index value of child node
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLNode &operator[](int idx);
 
   /**
@@ -207,7 +237,7 @@ class XMLNode
    *
    * @param[in]  idx     index value of child node
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLNode operator[](int idx) const;
 
   /**
@@ -215,7 +245,7 @@ class XMLNode
    *
    * @param[in]  tag     tag name of child node
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLNode &operator[](const std::string &tag);
 
   /**
@@ -223,7 +253,7 @@ class XMLNode
    *
    * @param[in]  tag     tag name of child node
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   XMLNode operator[](const std::string &tag) const;
 
   /**
@@ -233,7 +263,7 @@ class XMLNode
    *
    * @return     whether the operation succeeds
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool QueryText(std::string &txt_val) const;
 
   /**
@@ -243,7 +273,7 @@ class XMLNode
    *
    * @return     whether the operation succeeds
    */
-  HVR_XMLPARSER_DLL
+  HVR_XML_DLL
   bool QueryAttributes(std::map<std::string, std::string> &attrs) const;
 
  private:
@@ -261,4 +291,4 @@ class XMLNode
 
 }  // namespace hvr
 
-#endif  // MODULES_XMLPARSER_INCLUDE_HVR_XMLPARSER_XMLNODE_H_
+#endif  // MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
