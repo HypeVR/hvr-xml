@@ -1,7 +1,7 @@
 // Copyright 2018 Qi Yao
 
-#ifndef UNIT_TEST_XMLPARSER_INCLUDE_XMLTest_H_
-#define UNIT_TEST_XMLPARSER_INCLUDE_XMLTest_H_
+#ifndef UNIT_TEST_XML_INCLUDE_XMLTEST_H_
+#define UNIT_TEST_XML_INCLUDE_XMLTEST_H_
 
 // HVR_WINDOWS_DISABLE_ALL_WARNING
 #include "gtest/gtest.h"
@@ -17,4 +17,4 @@ class XMLTest : public ::testing::Test
   void TearDown() override;
 };
 
-#endif  // UNIT_TEST_XMLPARSER_INCLUDE_XMLTest_H_
+#endif  // UNIT_TEST_XML_INCLUDE_XMLTEST_H_

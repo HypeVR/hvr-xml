@@ -63,7 +63,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetTag_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -74,7 +74,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetValue_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -85,7 +85,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrByName_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   ASSERT_EQ((*root)[0].GetAttrByName("abc"), "__NULL__");
@@ -100,7 +100,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrs_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -111,7 +111,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetNumOfAttr_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -122,7 +122,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetNumOfSubNodes_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -133,7 +133,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
@@ -147,7 +147,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
@@ -161,7 +161,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_NodeErrorChecker_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      (exe_path + "/data/xmlparser_data/xml_node_data/sample.xml");
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
@@ -175,13 +175,13 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_writer_data/sample.xml";
+      exe_path + "/data/xml_data/xml_writer_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   hvr::XMLWriter cur_wrtr(root);
 
   std::string path_to_proc =
-      exe_path + "/data/xmlparser_data/xml_writer_data/result/";
+      exe_path + "/data/xml_data/xml_writer_data/result/";
   // position of "/"
   int pos = static_cast<int>(path_to_proc.find("/", 0));
 
@@ -207,11 +207,9 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
     pos = static_cast<int>(path_to_proc.find("/", pos + 1));
   }
 
-  cur_wrtr.Write(exe_path +
-                 "/data/xmlparser_data/xml_writer_data/result/test.xml");
+  cur_wrtr.Write(exe_path + "/data/xml_data/xml_writer_data/result/test.xml");
 
-  cur_prsr.Parse(exe_path +
-                 "/data/xmlparser_data/xml_writer_data/result/test.xml");
+  cur_prsr.Parse(exe_path + "/data/xml_data/xml_writer_data/result/test.xml");
   root = cur_prsr.GetRoot();
 
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
@@ -237,8 +235,7 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
 TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
 {
   hvr::XMLParser cur_prsr;
-  std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -255,8 +252,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
 TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
 {
   hvr::XMLParser cur_prsr;
-  std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -288,8 +284,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_SetNodeValidity_test)
 TEST_F(XMLTest, hvr_parser_XMLNode_QueryText_test)
 {
   hvr::XMLParser cur_prsr;
-  std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -306,8 +301,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_QueryText_test)
 TEST_F(XMLTest, hvr_parser_XMLNode_QueryAttributes_test)
 {
   hvr::XMLParser cur_prsr;
-  std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -324,8 +318,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_QueryAttributes_test)
 TEST_F(XMLTest, hvr_parser_XMLParser__test)
 {
   hvr::XMLParser cur_prsr;
-  std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
@@ -335,8 +328,7 @@ TEST_F(XMLTest, hvr_parser_XMLParser__test)
 TEST_F(XMLTest, hvr_parser_XMLNode_Clear_test)
 {
   hvr::XMLParser cur_prsr;
-  std::string file_path =
-      exe_path + "/data/xmlparser_data/xml_node_data/sample.xml";
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
