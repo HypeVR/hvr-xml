@@ -31,6 +31,11 @@ class XMLNode
   HVR_XML_DLL
   ~XMLNode();
 
+  /**
+   * @brief      Constructs the object with a input string as Tag of node.
+   *
+   * @param[in]  tag   The tag
+   */
   HVR_XML_DLL
   explicit XMLNode(const std::string &tag);
 
@@ -58,23 +63,43 @@ class XMLNode
   void SetTag(const std::string &tag);
 
   /**
-   * @brief      Sets the element value for current node. For example, <tag ...
-   *             >Value</tag>
+   * @brief      Sets the element text value for current node. For example,
+   *             <tag>Value</tag>
    *
    * @param[in]  value  Element value.
    */
   HVR_XML_DLL
   void SetText(const std::string &value);
 
+  /**
+   * @brief      Sets the element int value for current node.
+   *
+   * @param[in]  value  The value
+   */
   HVR_XML_DLL
   void SetInt(const int &value);
 
+  /**
+   * @brief      Sets the element float value for current node.
+   *
+   * @param[in]  value  The value
+   */
   HVR_XML_DLL
   void SetFloat(const float &value);
 
+  /**
+   * @brief      Sets the element double value for current node.
+   *
+   * @param[in]  value  The value
+   */
   HVR_XML_DLL
   void SetDouble(const double &value);
 
+  /**
+   * @brief      Sets the element boolean value for current node.
+   *
+   * @param[in]  value  The value
+   */
   HVR_XML_DLL
   void SetBool(const bool &value);
 
@@ -96,22 +121,42 @@ class XMLNode
   const std::string &GetTag() const;
 
   /**
-   * @brief      Gets the element value.
+   * @brief      Gets the element text value.
    *
    * @return     Element value.
    */
   HVR_XML_DLL
   const std::string &GetText() const;
 
+  /**
+   * @brief      Gets the element int value.
+   *
+   * @return     Element value.
+   */
   HVR_XML_DLL
   int GetInt() const;
 
+  /**
+   * @brief      Gets the element float value.
+   *
+   * @return     Element value.
+   */
   HVR_XML_DLL
   float GetFloat() const;
 
+  /**
+   * @brief      Gets the element double value.
+   *
+   * @return     Element value.
+   */
   HVR_XML_DLL
   double GetDouble() const;
 
+  /**
+   * @brief      Gets the element boolean value.
+   *
+   * @return     Element value.
+   */
   HVR_XML_DLL
   bool GetBool() const;
 
