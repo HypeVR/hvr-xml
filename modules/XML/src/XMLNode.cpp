@@ -3,6 +3,7 @@
 #include "Hvr/XML/XMLNode.h"
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -39,9 +40,40 @@ void XMLNode::SetTag(const std::string &tag)
   tag_ = tag;
 }
 
-void XMLNode::SetValue(const std::string &value)
+void XMLNode::SetText(const std::string &value)
 {
   value_ = value;
+}
+
+void XMLNode::SetInt(const int &value)
+{
+  value_ = std::to_string(value);
+}
+
+void XMLNode::SetFloat(const float &value)
+{
+  std::ostringstream out;
+  out << std::setprecision(12) << value;
+  value_ = out.str();
+}
+
+void XMLNode::SetDouble(const double &value)
+{
+  std::ostringstream out;
+  out << std::setprecision(12) << value;
+  value_ = out.str();
+}
+
+void XMLNode::SetBool(const bool &value)
+{
+  if (value)
+  {
+    value_ = "true";
+  }
+  else
+  {
+    value_ = "false";
+  }
 }
 
 void XMLNode::AddAttr(const std::string &attrname,
@@ -55,9 +87,32 @@ const std::string &XMLNode::GetTag() const
   return tag_;
 }
 
-const std::string &XMLNode::GetValue() const
+const std::string &XMLNode::GetText() const
 {
   return value_;
+}
+
+int XMLNode::GetInt() const
+{
+  return std::stoi(value_);
+}
+
+float XMLNode::GetFloat() const
+{
+  return std::stof(value_);
+}
+
+double XMLNode::GetDouble() const
+{
+  return std::stod(value_);
+}
+
+bool XMLNode::GetBool() const
+{
+  if (value_ == "true")
+    return true;
+  else
+    return false;
 }
 
 const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
@@ -229,7 +284,7 @@ bool XMLNode::QueryText(std::string &txt_val) const
 {
   if (IsValid())
   {
-    txt_val = GetValue();
+    txt_val = GetText();
     return true;
   }
 

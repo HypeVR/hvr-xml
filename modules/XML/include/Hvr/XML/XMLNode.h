@@ -64,7 +64,19 @@ class XMLNode
    * @param[in]  value  Element value.
    */
   HVR_XML_DLL
-  void SetValue(const std::string &value);
+  void SetText(const std::string &value);
+
+  HVR_XML_DLL
+  void SetInt(const int &value);
+
+  HVR_XML_DLL
+  void SetFloat(const float &value);
+
+  HVR_XML_DLL
+  void SetDouble(const double &value);
+
+  HVR_XML_DLL
+  void SetBool(const bool &value);
 
   /**
    * @brief      Adds an element attribute.
@@ -89,7 +101,19 @@ class XMLNode
    * @return     Element value.
    */
   HVR_XML_DLL
-  const std::string &GetValue() const;
+  const std::string &GetText() const;
+
+  HVR_XML_DLL
+  int GetInt() const;
+
+  HVR_XML_DLL
+  float GetFloat() const;
+
+  HVR_XML_DLL
+  double GetDouble() const;
+
+  HVR_XML_DLL
+  bool GetBool() const;
 
   /**
    * @brief      For attributes are known in advance, the attribute propoerty

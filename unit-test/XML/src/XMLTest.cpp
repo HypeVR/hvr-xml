@@ -45,11 +45,33 @@ TEST_F(XMLTest, hvr_parser_XMLNode_SetTag_test)
   ASSERT_EQ(node_p.GetTag(), "ABC");
 }
 
-TEST_F(XMLTest, hvr_parser_XMLNode_SetValue_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_SetText_test)
 {
   hvr::XMLNode node_p;
-  node_p.SetValue("123");
-  ASSERT_EQ(node_p.GetValue(), "123");
+  node_p.SetText("WHAT");
+  ASSERT_EQ(node_p.GetText(), "WHAT");
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_SetInt_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetInt(123);
+  ASSERT_EQ(node_p.GetInt(), 123);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_SetFloat_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetFloat(1.234567f);
+  ASSERT_EQ(std::abs(node_p.GetFloat() - 1.234567f) < 0.000001, true);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_SetDouble_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetDouble(0.00000000101);
+  ASSERT_EQ(std::abs(node_p.GetDouble() - 0.00000000101) < 0.000000000001,
+            true);
 }
 
 TEST_F(XMLTest, hvr_parser_XMLNode_AddAttr_test)
@@ -70,7 +92,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetTag_test)
   ASSERT_EQ((*root)[1].GetTag(), "TEST02");
 }
 
-TEST_F(XMLTest, hvr_parser_XMLNode_GetValue_test)
+TEST_F(XMLTest, hvr_parser_XMLNode_GetText_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path =
@@ -78,7 +100,57 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetValue_test)
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
-  ASSERT_EQ((*root)[1][0].GetValue(), "3");
+  ASSERT_EQ((*root)[1]["VALTEXT"].GetText(), "When");
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetInt_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ((*root)[0]["VALINT"].GetInt(), 888);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetFloat_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  std::cout << std::abs((*root)[0]["VALFLOAT"].GetDouble() - 1.234567)
+            << std::endl;
+  ASSERT_EQ(std::abs((*root)[0]["VALFLOAT"].GetDouble() - 1.234567) < 0.000001,
+            true);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetDouble_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  std::cout << std::abs((*root)[0]["VALDOUBLE"].GetDouble() - 9.876543210123)
+            << std::endl;
+
+  ASSERT_EQ(std::abs((*root)[0]["VALDOUBLE"].GetDouble() - 9.876543210123) <
+                0.000000000001,
+            true);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetBool_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path =
+      (exe_path + "/data/xml_data/xml_node_data/sample.xml");
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+
+  ASSERT_EQ((*root)[1]["VALBOOL"].GetBool(), false);
 }
 
 TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrByName_test)
@@ -126,7 +198,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetNumOfSubNodes_test)
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
-  ASSERT_EQ(static_cast<int>((*root)[0].GetNumOfSubNodes()), 2);
+  ASSERT_EQ(static_cast<int>((*root)[0].GetNumOfSubNodes()), 7);
 }
 
 TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
@@ -140,7 +212,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
 
   hvr::XMLNode &node = root->GetSubNodeByIndex(1, err_list);
 
-  ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 2);
+  ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 7);
 }
 
 TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
@@ -154,7 +226,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
 
   hvr::XMLNode &node = root->GetSubNodeByTag("TEST02", err_list);
 
-  ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 2);
+  ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 7);
 }
 
 TEST_F(XMLTest, hvr_parser_XMLNode_NodeErrorChecker_test)
@@ -223,11 +295,10 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
 
   ASSERT_EQ(root->NodeErrorChecker(err_list), true);
 
-  std::string val = root->GetSubNodeByTag("TEST02", err_list)
-                        .GetSubNodeByIndex(0, err_list)
-                        .GetValue();
-
-  ASSERT_EQ(val, "2");
+  ASSERT_EQ(root->GetSubNodeByTag("TEST02", err_list)
+                .GetSubNodeByIndex(0, err_list)
+                .GetInt(),
+            2);
 
   ASSERT_EQ(root->NodeErrorChecker(err_list), true);
 }

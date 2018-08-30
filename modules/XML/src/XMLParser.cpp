@@ -82,12 +82,12 @@ bool XMLParser::RecurseProc(XMLNode &parent_node)
     }
     if (i.ToElement()->GetText())
     {
-      node.SetValue(std::string(i.ToElement()->GetText()));
+      node.SetText(std::string(i.ToElement()->GetText()));
       // std::string cur_text = std::string(i.ToElement()->GetText());
     }
     else
     {
-      node.SetValue("__EMPTY__");
+      node.SetText("__EMPTY__");
     }
 
     reader_t_ = i.ToElement();

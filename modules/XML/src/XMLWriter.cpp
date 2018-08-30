@@ -53,7 +53,7 @@ bool XMLWriter::TranferInfo()
     std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
     XMLNode cur_node         = root_->GetSubNodeByIndex(i, err_list);
     std::string tmp_node_nam = cur_node.GetTag();
-    std::string tmp_val      = cur_node.GetValue();
+    std::string tmp_val      = cur_node.GetText();
     if (tmp_val == "__EMPTY__")
     {
       tmp_val = "";
@@ -86,7 +86,7 @@ bool XMLWriter::RecurseAppend(XMLNode &parent_node,
     std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
     XMLNode cur_node         = parent_node.GetSubNodeByIndex(i, err_list);
     std::string tmp_node_nam = cur_node.GetTag();
-    std::string tmp_val      = cur_node.GetValue();
+    std::string tmp_val      = cur_node.GetText();
     if (tmp_val == "__EMPTY__")
     {
       tmp_val = "";
