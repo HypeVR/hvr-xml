@@ -109,7 +109,7 @@ double XMLNode::GetDouble() const
 
 bool XMLNode::GetBool() const
 {
-  if (value_ == "true")
+  if (value_ == "true" || value_ == "1" || value_ == "TRUE" || value_ == "True")
     return true;
   else
     return false;
