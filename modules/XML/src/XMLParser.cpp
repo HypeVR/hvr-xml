@@ -28,7 +28,7 @@ bool XMLParser::Parse(const std::string filename)
 
   if (err_msg != 0)
   {
-    std::cerr << err_msg << std::endl;
+    // std::cerr << err_msg << std::endl;
     return false;
   }
 
