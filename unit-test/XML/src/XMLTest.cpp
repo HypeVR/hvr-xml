@@ -308,13 +308,14 @@ TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
   hvr::XMLParser cur_prsr;
   std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
   cur_prsr.Parse(file_path);
-  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  const hvr::XMLNode &root = *cur_prsr.GetRoot();
 
-  hvr::XMLNode &tmp_node = (*root)[1][1];
-  std::string val        = "";
+  const hvr::XMLNode &tmp_node = root[1][1];
+
+  std::string val = "";
   ASSERT_EQ(tmp_node.QueryText(val), true);
   ASSERT_EQ(val, "4");
-  const hvr::XMLNode tmp_node_const = (*root)[1][1];
+  const hvr::XMLNode tmp_node_const = root[1][1];
   val                               = "";
   ASSERT_EQ(tmp_node_const.QueryText(val), true);
   ASSERT_EQ(val, "4");
@@ -386,7 +387,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_QueryAttributes_test)
   ASSERT_EQ(attrs2["attr"], "no");
 }
 
-TEST_F(XMLTest, hvr_parser_XMLParser__test)
+TEST_F(XMLTest, hvr_parser_XMLParser_test)
 {
   hvr::XMLParser cur_prsr;
   std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";

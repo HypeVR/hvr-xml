@@ -275,7 +275,7 @@ class XMLNode
    * @param[in]  idx     index value of child node
    */
   HVR_XML_DLL
-  XMLNode &operator[](int idx);
+  XMLNode &operator[](const int idx);
 
   /**
    * @brief      Retrieve the child node based on input index value
@@ -283,7 +283,7 @@ class XMLNode
    * @param[in]  idx     index value of child node
    */
   HVR_XML_DLL
-  XMLNode operator[](int idx) const;
+  const XMLNode &operator[](const int idx) const;
 
   /**
    * @brief      Retrieve the first child node based on input tag name
@@ -299,7 +299,7 @@ class XMLNode
    * @param[in]  tag     tag name of child node
    */
   HVR_XML_DLL
-  XMLNode operator[](const std::string &tag) const;
+  const XMLNode &operator[](const std::string &tag) const;
 
   /**
    * @brief      Queries the text value of the node holdes

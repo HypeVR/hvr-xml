@@ -109,7 +109,7 @@ double XMLNode::GetDouble() const
 
 bool XMLNode::GetBool() const
 {
-  if (value_ == "true")
+  if (value_ == "true" || value_ == "1" || value_ == "TRUE" || value_ == "True")
     return true;
   else
     return false;
@@ -217,7 +217,7 @@ bool XMLNode::IsValid() const
   return is_valid_;
 }
 
-XMLNode &XMLNode::operator[](int idx)
+XMLNode &XMLNode::operator[](const int idx)
 {
   int child_cnt = GetNumOfSubNodes();
   if (idx > child_cnt - 1 || IsValid() != true)
@@ -231,7 +231,7 @@ XMLNode &XMLNode::operator[](int idx)
   return tmp_node;
 }
 
-XMLNode XMLNode::operator[](int idx) const
+const XMLNode &XMLNode::operator[](const int idx) const
 {
   std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
   int child_cnt = GetNumOfSubNodes();
@@ -241,7 +241,7 @@ XMLNode XMLNode::operator[](int idx) const
     bad_child->SetNodeValidity(false);
     return *bad_child;
   }
-  XMLNode tmp_node = subnodes_[idx];
+  const XMLNode &tmp_node = subnodes_[idx];
 
   return tmp_node;
 }
@@ -263,7 +263,7 @@ XMLNode &XMLNode::operator[](const std::string &tag)
   return *bad_child_;
 }
 
-XMLNode XMLNode::operator[](const std::string &tag) const
+const XMLNode &XMLNode::operator[](const std::string &tag) const
 {
   if (IsValid())
   {
