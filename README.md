@@ -52,7 +52,7 @@ Setup PPA - For Linux
 ==============
 
 ~~~~~~~~~~~~~~~~~~~~~
-    sudo sh -c "echo \"deb [arch=amd64 trusted=yes] http://52.33.197.63 debian/\" >> /etc/apt/sources.list"
+    sudo sh -c "echo \"deb [arch=amd64 trusted=yes] http://ppa.hypevr.com debian/\" >> /etc/apt/sources.list"
 
     sudo sh -c "echo Package: \* >> /etc/apt/preferences"
 
