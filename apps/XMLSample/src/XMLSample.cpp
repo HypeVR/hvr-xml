@@ -15,11 +15,11 @@ void DirCreator(const std::string &path_to_create)
 {
   std::string path_to_proc = path_to_create + "/";
   // position of "/"
-  int pos = static_cast<int>(path_to_proc.find("/", 0));
+  std::size_t pos = path_to_proc.find("/", 0);
 
   // loop through a given string of directory and create the missing directory
   // iteratively
-  while (pos != static_cast<int>(std::string::npos))
+  while (pos != std::string::npos)
   {
     std::string path_to_check = path_to_proc.substr(0, pos);
     boost::filesystem::path path(path_to_check);

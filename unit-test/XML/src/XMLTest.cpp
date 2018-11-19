@@ -255,11 +255,11 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
   std::string path_to_proc =
       exe_path + "/data/xml_data/xml_writer_data/result/";
   // position of "/"
-  int pos = static_cast<int>(path_to_proc.find("/", 0));
+  std::size_t pos = path_to_proc.find("/", 0);
 
   // loop through a given string of directory and create the missing directory
   // iteratively
-  while (pos != static_cast<int>(std::string::npos))
+  while (pos != std::string::npos)
   {
     std::string path_to_check = path_to_proc.substr(0, pos);
     boost::filesystem::path path(path_to_check);
