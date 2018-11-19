@@ -24,24 +24,3 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER ${CMAKE_PROJECT_NAME}/apps)
 install(TARGETS ${PROJECT_NAME}
         EXPORT ${CMAKE_PROJECT_NAME}Targets
         DESTINATION bin COMPONENT install-app)
-
-if(MSVC)
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-              COMMAND ${CMAKE_COMMAND} -E copy
-              ${PROJECT_SOURCE_DIR}/sample.xml
-              ${CMAKE_BINARY_DIR}/bin/$<CONFIGURATION>/data)
-
-elseif((CMAKE_CXX_COMPILER_ID MATCHES "Clang") OR CMAKE_COMPILER_IS_GNUCC
-    OR CMAKE_COMPILER_IS_GNUCXX)
-
-  file(GLOB XML_DATA ${PROJECT_SOURCE_DIR}/sample.xml)
-
-  file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/xmlparserdata.cmake
-    "file(COPY ${XML_DATA} DESTINATION
-    ${CMAKE_CURRENT_BINARY_DIR}/data
-    FILE_PERMISSIONS OWNER_READ OWNER_WRITE GROUP_WRITE GROUP_READ WORLD_READ)")
-
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND
-                    ${CMAKE_COMMAND}
-                  -P ${CMAKE_CURRENT_BINARY_DIR}/xmlparserdata.cmake)
-endif()
