@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
+
 project(XMLSample)
 
 if(MSVC)
@@ -15,10 +16,6 @@ source_group("src" FILES ${PROJECT_SRCS})
 find_package(Boost COMPONENTS filesystem REQUIRED)
 
 add_executable(${PROJECT_NAME} ${PROJECT_SRCS})
-
-target_compile_definitions(${PROJECT_NAME} PUBLIC
-                          HVR_WINDOWS_DISABLE_ALL_WARNING=${DISABLE}
-                          HVR_WINDOWS_ENABLE_ALL_WARNING=${ENABLE})
 
 target_link_libraries(${PROJECT_NAME} hvr_xml Boost::filesystem)
 

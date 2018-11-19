@@ -12,7 +12,6 @@ ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
 
 find_package(Boost COMPONENTS filesystem thread REQUIRED)
-find_package(tinyxml2 REQUIRED)
 
 add_executable(XMLTest ${XML_SRCS} ${XML_INCS})
 
