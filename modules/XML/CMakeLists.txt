@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
+
 project(hvr_xml)
 
 if(MSVC)
@@ -28,17 +29,11 @@ ${PROJECT_SOURCE_DIR}/info.dox
 source_group("include" FILES ${PROJECT_INCS})
 source_group("src"     FILES ${PROJECT_SRCS})
 
-# Library for parsing Dash media presentation description
 find_package(tinyxml2 REQUIRED)
-# Library for lock-free queue
-# find_package( Boost COMPONENTS system REQUIRED )
-# Library for logging
-# find_package( glog REQUIRED )
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS}
                                     ${PROJECT_INCS}
-                                    ${PROJECT_INFO}
-                                    )
+                                    ${PROJECT_INFO})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
@@ -59,8 +54,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC)
 
 target_link_libraries(${PROJECT_NAME}
-                      # glog::glog
-                      tinyxml2
+                      tinyxml2::tinyxml2
                       )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY
@@ -84,7 +78,5 @@ export(TARGETS
 
 file(APPEND ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
     "find_dependency(tinyxml2 REQUIRED)\n"
-    # "find_dependency( Boost COMPONENTS system REQUIRED )\n"
-    # "find_dependency( glog REQUIRED )\n"
     )
 

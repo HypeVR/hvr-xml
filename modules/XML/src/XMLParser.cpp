@@ -68,8 +68,8 @@ std::shared_ptr<XMLNode> &XMLParser::GetRoot()
 
 bool XMLParser::RecurseProc(XMLNode &parent_node)
 {
-  for (tinyxml2::XMLHandle i = reader_t_->FirstChildElement(); i.ToElement();
-       i                     = i.NextSiblingElement())
+  for (tinyxml2::XMLHandle i(reader_t_->FirstChildElement()); i.ToElement();
+       i = i.NextSiblingElement())
   {
     XMLNode node;
     node.SetTag(std::string(i.ToElement()->Name()));
