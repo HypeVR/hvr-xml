@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.11)
 project(unit-test)
 
 if((NOT TARGET test) AND (NOT TARGET RUN_UNIT_TEST))
