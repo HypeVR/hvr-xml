@@ -50,8 +50,7 @@ bool XMLWriter::TranferInfo()
   tinyxml2::XMLElement *xml_root = wrtr_.NewElement(root_nam.c_str());
   for (int i = 0; i < static_cast<int>(root_->GetNumOfSubNodes()); i++)
   {
-    std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
-    XMLNode cur_node         = root_->GetSubNodeByIndex(i, err_list);
+    XMLNode &cur_node        = (*root_)[i];
     std::string tmp_node_nam = cur_node.GetTag();
     std::string tmp_val      = cur_node.GetText();
     if (tmp_val == "__EMPTY__")
@@ -60,7 +59,11 @@ bool XMLWriter::TranferInfo()
     }
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
-    cur_elem->SetText(tmp_val.c_str());
+    if (tmp_val != "")
+    {
+      cur_elem->SetText(tmp_val.c_str());
+    }
+
     for (std::map<std::string, std::string>::const_iterator it =
              tmp_attrs.begin();
          it != tmp_attrs.end();
@@ -68,11 +71,11 @@ bool XMLWriter::TranferInfo()
     {
       cur_elem->SetAttribute(it->first.c_str(), it->second.c_str());
     }
-    xml_root->InsertEndChild(cur_elem);
     if (cur_node.GetNumOfSubNodes() > 0)
     {
       RecurseAppend(cur_node, cur_elem);
     }
+    xml_root->InsertEndChild(cur_elem);
   }
   wrtr_.InsertFirstChild(xml_root);
   return true;
@@ -83,8 +86,7 @@ bool XMLWriter::RecurseAppend(XMLNode &parent_node,
 {
   for (int i = 0; i < static_cast<int>(parent_node.GetNumOfSubNodes()); i++)
   {
-    std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
-    XMLNode cur_node         = parent_node.GetSubNodeByIndex(i, err_list);
+    XMLNode cur_node         = parent_node[i];
     std::string tmp_node_nam = cur_node.GetTag();
     std::string tmp_val      = cur_node.GetText();
     if (tmp_val == "__EMPTY__")
@@ -93,7 +95,10 @@ bool XMLWriter::RecurseAppend(XMLNode &parent_node,
     }
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
-    cur_elem->SetText(tmp_val.c_str());
+    if (tmp_val != "")
+    {
+      cur_elem->SetText(tmp_val.c_str());
+    }
     for (std::map<std::string, std::string>::const_iterator it =
              tmp_attrs.begin();
          it != tmp_attrs.end();
@@ -101,11 +106,11 @@ bool XMLWriter::RecurseAppend(XMLNode &parent_node,
     {
       cur_elem->SetAttribute(it->first.c_str(), it->second.c_str());
     }
-    parent_elem->InsertEndChild(cur_elem);
     if (cur_node.GetNumOfSubNodes() > 0)
     {
       RecurseAppend(cur_node, cur_elem);
     }
+    parent_elem->InsertEndChild(cur_elem);
   }
   return true;
 }

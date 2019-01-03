@@ -208,9 +208,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByIndex_test)
       (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
-  std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
-
-  hvr::XMLNode &node = root->GetSubNodeByIndex(1, err_list);
+  hvr::XMLNode &node                 = (*root)[1];
 
   ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 7);
 }
@@ -222,9 +220,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetSubNodeByTag_test)
       (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
-  std::vector<std::pair<std::string, hvr::XMLNode::NodeStat>> err_list;
-
-  hvr::XMLNode &node = root->GetSubNodeByTag("TEST02", err_list);
+  hvr::XMLNode &node                 = (*root)["TEST02"];
 
   ASSERT_EQ(static_cast<int>(node.GetNumOfSubNodes()), 7);
 }
