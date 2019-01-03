@@ -1,8 +1,14 @@
 <CONFIG>
     <TEST01 attr="yes">
         <VAL>1</VAL>
+        <VAL>3</VAL>
+        <VAL>5</VAL>
+        <VAL>7</VAL>
     </TEST01>
     <TEST02 attr="no">
         <VAL>2</VAL>
+        <VAL>4</VAL>
+        <VAL>6</VAL>
+        <VAL>8</VAL>
     </TEST02>
 </CONFIG>
