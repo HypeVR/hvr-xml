@@ -3,6 +3,8 @@
 #include "Hvr/XML/XMLWriter.h"
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
+#include <tinyxml2.h>
+
 #include <iostream>
 #include <map>
 #include <memory>
@@ -12,12 +14,26 @@ HVR_WINDOWS_ENABLE_ALL_WARNING
 
 namespace hvr
 {
+struct XMLWriter::Pimpl
+{
+  Pimpl()
+  {
+    root_ = std::make_shared<XMLNode>();
+  }
+  bool RecurseAppend(XMLNode &parent_node, tinyxml2::XMLElement *parent_elem);
+
+  tinyxml2::XMLDocument wrtr_;
+  std::shared_ptr<XMLNode> root_;
+};
+
 XMLWriter::XMLWriter()
 {
-  root_ = std::make_shared<XMLNode>();
+  pi_ = std::make_unique<Pimpl>();
 }
-XMLWriter::XMLWriter(const std::shared_ptr<XMLNode> in_node) : root_(in_node)
+XMLWriter::XMLWriter(const std::shared_ptr<XMLNode> in_node)
 {
+  pi_        = std::make_unique<Pimpl>();
+  pi_->root_ = in_node;
 }
 XMLWriter::~XMLWriter()
 {
@@ -29,14 +45,14 @@ bool XMLWriter::AssignXMLNode(const std::shared_ptr<XMLNode> in_node)
   {
     return false;
   }
-  root_ = in_node;
+  pi_->root_ = in_node;
   return true;
 }
 
 bool XMLWriter::Write(const std::string &out_path)
 {
   TranferInfo();
-  tinyxml2::XMLError stat = wrtr_.SaveFile(out_path.c_str());
+  tinyxml2::XMLError stat = pi_->wrtr_.SaveFile(out_path.c_str());
   if (stat != tinyxml2::XML_SUCCESS)
   {
     return false;
@@ -46,11 +62,11 @@ bool XMLWriter::Write(const std::string &out_path)
 
 bool XMLWriter::TranferInfo()
 {
-  std::string root_nam           = root_->GetTag();
-  tinyxml2::XMLElement *xml_root = wrtr_.NewElement(root_nam.c_str());
-  for (int i = 0; i < static_cast<int>(root_->GetNumOfSubNodes()); i++)
+  std::string root_nam           = pi_->root_->GetTag();
+  tinyxml2::XMLElement *xml_root = pi_->wrtr_.NewElement(root_nam.c_str());
+  for (int i = 0; i < static_cast<int>(pi_->root_->GetNumOfSubNodes()); i++)
   {
-    XMLNode &cur_node        = (*root_)[i];
+    XMLNode &cur_node        = (*pi_->root_)[i];
     std::string tmp_node_nam = cur_node.GetTag();
     std::string tmp_val      = cur_node.GetText();
     if (tmp_val == "__EMPTY__")
@@ -58,7 +74,8 @@ bool XMLWriter::TranferInfo()
       tmp_val = "";
     }
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
-    tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
+    tinyxml2::XMLElement *cur_elem =
+        pi_->wrtr_.NewElement(tmp_node_nam.c_str());
     if (tmp_val != "")
     {
       cur_elem->SetText(tmp_val.c_str());
@@ -73,16 +90,16 @@ bool XMLWriter::TranferInfo()
     }
     if (cur_node.GetNumOfSubNodes() > 0)
     {
-      RecurseAppend(cur_node, cur_elem);
+      pi_->RecurseAppend(cur_node, cur_elem);
     }
     xml_root->InsertEndChild(cur_elem);
   }
-  wrtr_.InsertFirstChild(xml_root);
+  pi_->wrtr_.InsertFirstChild(xml_root);
   return true;
 }
 
-bool XMLWriter::RecurseAppend(XMLNode &parent_node,
-                              tinyxml2::XMLElement *parent_elem)
+bool XMLWriter::Pimpl::RecurseAppend(XMLNode &parent_node,
+                                     tinyxml2::XMLElement *parent_elem)
 {
   for (int i = 0; i < static_cast<int>(parent_node.GetNumOfSubNodes()); i++)
   {
