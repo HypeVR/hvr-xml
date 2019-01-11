@@ -4,7 +4,6 @@
 #define MODULES_XML_INCLUDE_HVR_XML_XMLWRITER_H_
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
-#include <tinyxml2.h>
 HVR_WINDOWS_ENABLE_ALL_WARNING
 
 #include <map>
@@ -65,10 +64,9 @@ class XMLWriter
 
  private:
   bool TranferInfo();
-  bool RecurseAppend(XMLNode &parent_node, tinyxml2::XMLElement *parent_elem);
 
-  tinyxml2::XMLDocument wrtr_;
-  std::shared_ptr<XMLNode> root_;
+  struct Pimpl;
+  std::unique_ptr<Pimpl> pi_;
 };
 }  // namespace hvr
 
