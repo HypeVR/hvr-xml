@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
 
+if(WIN32)
+  set(CMAKE_TOOLCHAIN_FILE $ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake
+                           CACHE STRING "")
+  set(VCPKG_TARGET_TRIPLET x64-windows-hypevr CACHE STRING "")
+endif()
+
 project(hvr-xml LANGUAGES CXX)
 
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")

@@ -24,7 +24,7 @@ How to compile:
 
     cd build
 
-    cmake .. -A x64 -C ..\initcmake.txt ..
+    cmake .. -A x64 ..
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Need to specify the compiler otherwise it will be defaulted to the
