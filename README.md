@@ -472,6 +472,21 @@ OpenCV
 - link opencv include, library, share directory from /usr/local/opt/opencv3 to
   /usr/local/include, /usr/local/lib, and /usr/local/share
 
+gtest
+--------------
+
+**For Linux**
+
+~~~~~~~~~~~~~~~~~~~~~
+    sudo apt-get install googletest
+~~~~~~~~~~~~~~~~~~~~~
+
+**For Windows**
+
+~~~~~~~~~~~~~~~~~~~~~
+    vcpkg install gtest
+~~~~~~~~~~~~~~~~~~~~~
+
 MPI
 --------------
 
