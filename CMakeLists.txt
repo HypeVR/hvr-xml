@@ -142,3 +142,12 @@ if(NOT TARGET install-app)
                     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=install-app
                     -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
 endif()
+
+file(GLOB_RECURSE ALL_FILES modules/*.cpp modules/*.h
+                            modules/*.cu modules/*.cuh
+                            apps/*.cpp apps/*.h
+                            unit-test/*cpp unit-test/*.h)
+
+set(CLANG_FORMAT_EXECUTABLE "clang-format" CACHE STRING "clang-format")
+
+add_custom_target(format COMMAND ${CLANG_FORMAT_EXECUTABLE} -i ${ALL_FILES})
