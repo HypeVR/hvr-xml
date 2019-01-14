@@ -148,8 +148,11 @@ Setup coding style
 
 - search and install SublimeLinter-cpplint
 
-- build the latest llvm/clang by following
-http://clang.llvm.org/get_started.html (obtain latest release)
+- install the clang-format and clang-tidy
+
+~~~~~~~~~~~~~~~~~~~~~
+    sudo apt install clang clang-format clang-tidy
+~~~~~~~~~~~~~~~~~~~~~
 
 - ctrl + shift + p
 

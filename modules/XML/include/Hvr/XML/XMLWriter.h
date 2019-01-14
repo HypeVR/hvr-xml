@@ -34,7 +34,7 @@ class XMLWriter
    * @param[in]  in_node  In node
    */
   HVR_XML_DLL
-  explicit XMLWriter(const std::shared_ptr<XMLNode> in_node);
+  explicit XMLWriter(const std::shared_ptr<XMLNode> &in_node);
 
   /**
    * @brief      Default destructor
@@ -50,7 +50,7 @@ class XMLWriter
    * @return     whether the operation succeeds
    */
   HVR_XML_DLL
-  bool AssignXMLNode(const std::shared_ptr<XMLNode> in_node);
+  bool AssignXMLNode(const std::shared_ptr<XMLNode> &in_node);
 
   /**
    * @brief      Write the info to a .xml file with given path

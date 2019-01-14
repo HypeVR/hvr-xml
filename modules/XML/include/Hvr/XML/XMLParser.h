@@ -40,7 +40,7 @@ class XMLParser
    *
    * @return     True if parsing successful, False otherwise.
    */
-  HVR_XML_DLL bool Parse(const std::string filename);
+  HVR_XML_DLL bool Parse(const std::string &filename);
 
   /**
    * @brief      Gets the root XML node.

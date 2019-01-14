@@ -37,7 +37,7 @@ class XMLNode
    * @param[in]  tag   The tag
    */
   HVR_XML_DLL
-  explicit XMLNode(const std::string &tag);
+  explicit XMLNode(std::string tag);
 
   /**
    * @brief      Adds a subnode.

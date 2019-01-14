@@ -15,7 +15,7 @@ void DirCreator(const std::string &path_to_create)
 {
   std::string path_to_proc = path_to_create + "/";
   // position of "/"
-  std::size_t pos = path_to_proc.find("/", 0);
+  std::size_t pos = path_to_proc.find('/', 0);
 
   // loop through a given string of directory and create the missing directory
   // iteratively
@@ -29,14 +29,14 @@ void DirCreator(const std::string &path_to_create)
     {
       boost::filesystem::create_directory(path, return_err);
 
-      if (return_err)
+      if (return_err != nullptr)
       {
         std::cerr << return_err << std::endl;
       }
     }
 
     // push "/" pos back and search for the next "/" pos
-    pos = static_cast<int>(path_to_proc.find("/", pos + 1));
+    pos = static_cast<int>(path_to_proc.find('/', pos + 1));
   }
 }
 
@@ -103,8 +103,8 @@ int main(int argc, char **argv)
     std::cout << "-o   output xml file path" << std::endl;
   }
 
-  std::string in_path  = "";
-  std::string out_path = "";
+  std::string in_path;
+  std::string out_path;
 
   InputParser(argc, argv, in_path, out_path);
 
@@ -116,11 +116,9 @@ int main(int argc, char **argv)
   for (int i = 0; i < static_cast<int>(root_node.GetNumOfSubNodes()); i++)
   {
     std::map<std::string, std::string> attrs = root_node[i].GetAttrs();
-    for (std::map<std::string, std::string>::iterator it = attrs.begin();
-         it != attrs.end();
-         it++)
+    for (auto &attr : attrs)
     {
-      std::cout << "attribute " << it->first << " has value of " << it->second
+      std::cout << "attribute " << attr.first << " has value of " << attr.second
                 << std::endl;
       std::string val;
       if (root_node[i]["VAL1"].QueryText(val))

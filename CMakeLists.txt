@@ -80,11 +80,8 @@ if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44986")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44987")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44988")
-elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -fsigned-char")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -freg-struct-return -Wextra")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpedantic -Wcast-qual -Wshadow")
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX
+       OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -fsigned-char -Wshadow")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wpedantic -Wcast-qual")
 endif()
@@ -99,6 +96,18 @@ if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR CMAKE_COMPILER_IS_GNUCC
 endif()
 
 message(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+
+set(CLANG_TIDY_EXECUTABLE "clang-tidy" CACHE STRING "clang-tidy")
+set(CLANG_TIDY_FLAGS "-checks=-*,modernize-*,mpi-*,performance-*,readability-*")
+string(APPEND CLANG_TIDY_FLAGS ",-readability-avoid-const-params-in-decls")
+
+option(RUN_CLANG_TIDY "run clang tidy during compilation" ON)
+
+if(RUN_CLANG_TIDY)
+  set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};${CLANG_TIDY_FLAGS};-fix")
+else()
+  set(CMAKE_CXX_CLANG_TIDY "")
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 

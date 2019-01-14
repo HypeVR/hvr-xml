@@ -6,7 +6,7 @@ HVR_WINDOWS_DISABLE_ALL_WARNING
 #include "gtest/gtest.h"
 HVR_WINDOWS_ENABLE_ALL_WARNING
 
-std::string exe_path = "";
+std::string exe_path;
 
 int main(int argc, char **argv)
 {
