@@ -1,6 +1,7 @@
 |Linux|Windows|cpplint|cmakelint|
 |---|---|---|---|
-|[![Build Status](http://54.68.121.138:8080/buildStatus/icon?job=hvr-sample-build-unit-test-linux)](http://54.68.121.138:8080/job/hvr-sample-build-unit-test-linux/)|[![Build Status](http://52.33.197.63:8080/buildStatus/icon?job=hvr-sample-build-unit-test-windows)](http://52.33.197.63:8080/job/hvr-sample-build-unit-test-windows/)|[![Build Status](http://54.68.121.138:8080/buildStatus/icon?job=hvr-sample-cpplint)](http://54.68.121.138:8080/job/hvr-sample-cpplint/)|[![Build Status](http://54.68.121.138:8080/buildStatus/icon?job=hvr-sample-cmakelint)](http://54.68.121.138:8080/job/hvr-sample-cmakelint/)|
+|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-build-unit-test-linux)](http://jenkins.hypevr.com/job/hvr-xml-build-unit-test-linux/)|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-build-unit-test-windows)](http://jenkins.hypevr.com/job/hvr-xml-build-unit-test-windows/)|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-cpplint)](http://jenkins.hypevr.com/job/hvr-xml-cpplint/)|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-cmakelint)](http://jenkins.hypevr.com/job/hvr-xml-cmakelint/)|
+
 
 How to compile:
 ==============
