@@ -12,6 +12,7 @@ ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
 
 find_package(GTest CONFIG REQUIRED)
+find_package(glog REQUIRED)
 find_package(Boost COMPONENTS filesystem thread REQUIRED)
 
 add_executable(XMLTest ${XML_SRCS} ${XML_INCS})
@@ -22,6 +23,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(XMLTest
                       hvr_xml
                       GTest::gtest_main
+                      glog::glog
                       Boost::filesystem)
 
 set_property(TARGET XMLTest PROPERTY FOLDER
