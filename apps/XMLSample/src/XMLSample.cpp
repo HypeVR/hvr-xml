@@ -29,7 +29,7 @@ void DirCreator(const std::string &path_to_create)
     {
       boost::filesystem::create_directory(path, return_err);
 
-      if (return_err != nullptr)
+      if (return_err.value() != boost::system::errc::success)
       {
         std::cerr << return_err << std::endl;
       }

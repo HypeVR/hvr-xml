@@ -261,7 +261,7 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
     {
       boost::filesystem::create_directory(path, return_err);
 
-      if (return_err != nullptr)
+      if (return_err.value() != boost::system::errc::success)
       {
         std::cerr << return_err << std::endl;
       }
