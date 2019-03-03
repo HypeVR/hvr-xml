@@ -83,18 +83,14 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX
        OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -fsigned-char -Wshadow")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wpedantic -Wcast-qual")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Winline")
 endif()
 
-if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR CMAKE_COMPILER_IS_GNUCC
-    OR CMAKE_COMPILER_IS_GNUCXX)
-  if(CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Winline")
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
-  endif()
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
-
-message(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 set(CLANG_TIDY_EXECUTABLE "clang-tidy" CACHE STRING "clang-tidy")
 set(CLANG_TIDY_FLAGS "-checks=-*,modernize-*,mpi-*,performance-*,readability-*")
