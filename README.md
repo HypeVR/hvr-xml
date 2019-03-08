@@ -391,91 +391,6 @@ Doxygen
     brew install graphviz
 ~~~~~~~~~~~~~~~~~~~~~
 
-CUDA
---------------
-
-**For Linux**
-
-- Download the latest cuda run file on NVIDIA's website
-
-~~~~~~~~~~~~~~~~~~~~~
-    sudo apt-get remove --purge cuda*
-
-    chmod a+x cuda_x.x.xx_linux.run
-
-    sudo ./cuda_x.x.xx_linux.run
-~~~~~~~~~~~~~~~~~~~~~
-
-- Just install cuda and the samples, don't install the driver
-
-- Add system path
-
-~~~~~~~~~~~~~~~~~~~~~
-    vim ~/.bashrc
-~~~~~~~~~~~~~~~~~~~~~
-
-- export PATH=/usr/local/cuda/bin:$PATH
-
-- export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-
-- Test samples
-
-~~~~~~~~~~~~~~~~~~~~~
-    cd NVIDIA_CUDA-x.x_Samples/bin/x86_64/linux/release
-
-    ./deviceQuery
-
-    ./bandwidthTest
-
-    ./smokeParticles
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-- Download the latest cuda
-
-- Follow instructions on express installation
-
-- Tell vcpkg cuda is installed
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install cuda
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Mac/OSX**
-
-- Download the latest cuda
-
-- Follow instructions (similar to linux install)
-
-OpenCV
---------------
-
-**For Linux**
-
-~~~~~~~~~~~~~~~~~~~~~
-    sudo apt-get install opencv-main opencv-dev opencv-libs
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install opencv
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Mac/OSX**
-
-- install brew from http://brew.sh
-
-~~~~~~~~~~~~~~~~~~~~~
-    brew install opencv3.2
-~~~~~~~~~~~~~~~~~~~~~
-
-- Follow brew after-installation instruction
-
-- link opencv include, library, share directory from /usr/local/opt/opencv3 to
-  /usr/local/include, /usr/local/lib, and /usr/local/share
-
 gtest
 --------------
 
@@ -491,68 +406,13 @@ gtest
     vcpkg install gtest
 ~~~~~~~~~~~~~~~~~~~~~
 
-MPI
---------------
-
-**For Linux**
-
-- Installed by default
-
-- Example usage
-
-~~~~~~~~~~~~~~~~~~~~~
-    mpirun -n 4 -machinefile host_file ./test
-~~~~~~~~~~~~~~~~~~~~~
-
-- n is the number of process
-
-- host_file contains the ip of the remote computer and localhost, for example:
-
-~~~~~~~~~~~~~~~~~~~~~
-    localhost
-    192.168.0.11
-    192.168.0.12
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install msmpi
-~~~~~~~~~~~~~~~~~~~~~
-
-- Example usage
-
-~~~~~~~~~~~~~~~~~~~~~
-    mpiexec -n 4 -machinefile host_file.txt ./test.exe
-~~~~~~~~~~~~~~~~~~~~~
-
-- n is the number of process
-
-- host_file contains the ip of the remote computer and localhost, for example:
-
-~~~~~~~~~~~~~~~~~~~~~
-    localhost
-    192.168.0.11
-    192.168.0.12
-~~~~~~~~~~~~~~~~~~~~~
-
-- There are 2 services that on windows must be turned on in advance:
-~~~~~~~~~~~~~~~~~~~~~
-RpcLocator
-MsMpiLaunchSvc
-~~~~~~~~~~~~~~~~~~~~~
-- Turn those service on
-~~~~~~~~~~~~~~~~~~~~~
-Go to Task Manager > Services > right click service name and select start
-~~~~~~~~~~~~~~~~~~~~~
-
 REDSDK
 --------------
 
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-
+    sudo apt-get install redsdk
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
@@ -567,13 +427,13 @@ Boost
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-
+    sudo apt-get install libboost1.68-dev
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
 
 ~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install Boost
+    vcpkg install boost
 ~~~~~~~~~~~~~~~~~~~~~
 
 tinyxml2
@@ -582,43 +442,13 @@ tinyxml2
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-
+    sudo apt-get install tinyxml2
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
 
 ~~~~~~~~~~~~~~~~~~~~~
     vcpkg install tinyxml2
-~~~~~~~~~~~~~~~~~~~~~
-
-libxml2
---------------
-
-**For Linux**
-
-~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install libxml2
-~~~~~~~~~~~~~~~~~~~~~
-
-exiv2
---------------
-
-**For Linux**
-
-~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install exiv2
 ~~~~~~~~~~~~~~~~~~~~~
 
 Debugging
