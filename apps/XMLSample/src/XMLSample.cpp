@@ -1,4 +1,4 @@
-// Copyright 2017 Qi Yao
+// Copyright 2019 HypeVR
 
 HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <iostream>

@@ -1,4 +1,4 @@
-// Copyright 2018 Qi Yao
+// Copyright 2019 HypeVR
 
 #include "XMLTest.h"
 

@@ -1,4 +1,4 @@
-// Copyright @ 2016 Caoyang Jiang & Qi Yao
+// Copyright 2019 HypeVR
 
 #include "Hvr/XML/XMLWriter.h"
 

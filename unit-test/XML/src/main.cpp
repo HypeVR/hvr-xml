@@ -1,4 +1,4 @@
-// Copyright 2015 Jason Juang
+// Copyright 2019 HypeVR
 
 #include <string>
 

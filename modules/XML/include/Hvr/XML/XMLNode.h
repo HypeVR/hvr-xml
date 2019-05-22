@@ -1,4 +1,4 @@
-// Copyright @ 2016 Caoyang Jiang
+// Copyright 2019 HypeVR
 
 #ifndef MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
 #define MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
