@@ -29,15 +29,11 @@ jobs:
         displayName: 'Add HypeVR PPA Source'
       - script: |
           sudo apt install -y g++ gcc cmake make \
-            gflags googletest valgrind \
+            gflags googletest valgrind glog \
             tinyxml2
         displayName: 'Install dependent libraries'
       - script: |
           mkdir $BUILD_DIR && cd $BUILD_DIR
-          echo $(Agent.BuildDirectory)
-          echo $(Build.SourcesDirectory)
-          which cmake
-          pwd
           cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
         displayName: 'CMake Configuration'
       - script: |
