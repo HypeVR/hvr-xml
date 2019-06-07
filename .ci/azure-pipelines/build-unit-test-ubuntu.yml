@@ -34,6 +34,9 @@ jobs:
         displayName: 'Install dependent libraries'
       - script: |
           mkdir $BUILD_DIR && cd $BUILD_DIR
+          ls $(Agent.BuildDirectory)
+          ls $(Build.SourcesDirectory)
+          which cmake
           cmake $(Build.SourcesDirectory) \ 
             -DCMAKE_INSTALL_PREFIX=install 
         displayName: 'CMake Configuration'
