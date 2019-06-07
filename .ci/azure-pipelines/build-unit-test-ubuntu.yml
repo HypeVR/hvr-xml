@@ -1,9 +1,10 @@
- branches:
+trigger:
+  branches:
     include:
     - *
     exclude:
     - master
-    
+
 jobs:
   - job: ubuntu1604
     displayName: Ubuntu 16.04
