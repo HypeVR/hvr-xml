@@ -18,11 +18,10 @@ jobs:
       - script: |
           pip3 install cmakelint --user
           pip3 install cpplint --user
-          ls ~/.local/bin
-          export PATH=$PATH:~/.local/bin/
-          export
         displayName: 'Install cmakelint & cpplint'
       - script: |
+          export PATH=$PATH:~/.local/bin/
+          export
           cd $SOURCE_DIR
           bash $SOURCE_DIR/Lint.sh
         displayName: 'Run Cmakelint and Cpplint'
