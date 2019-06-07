@@ -1,6 +1,16 @@
-|Linux|Windows|cpplint|cmakelint|
-|---|---|---|---|
-|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-build-unit-test-linux)](http://jenkins.hypevr.com/job/hvr-xml-build-unit-test-linux/)|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-build-unit-test-windows)](http://jenkins.hypevr.com/job/hvr-xml-build-unit-test-windows/)|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-cpplint)](http://jenkins.hypevr.com/job/hvr-xml-cpplint/)|[![Build Status](http://jenkins.hypevr.com/buildStatus/icon?job=hvr-xml-cmakelint)](http://jenkins.hypevr.com/job/hvr-xml-cmakelint/)|
+Ubuntu-Dev | Windows-Dev | Ubuntu-Master | Windows-Master 
+------     | -------     | -----         | -----
+[![Ubuntu Build Status][ci-ubuntu-image-dev]][ci-ubuntu-dev] | [![Windows Build Status][ci-windows-image-dev]][ci-windows-dev] | [![Ubuntu Build Status][ci-ubuntu-image]][ci-ubuntu] | [![Windows Build Status][ci-windows-image]][ci-windows] 
+
+[ci-ubuntu-dev]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=11
+[ci-ubuntu-image-dev]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-unit-test-ubuntu?branchName=develop
+[ci-ubuntu]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=12
+[ci-ubuntu-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-ubuntu?branchName=master
+
+[ci-windows-dev]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=11
+[ci-windows-image-dev]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-unit-test-ubuntu?branchName=develop
+[ci-windows]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=12
+[ci-windows-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-ubuntu?branchName=master
 
 
 How to compile:
