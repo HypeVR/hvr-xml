@@ -20,7 +20,7 @@ touch main.cpp
 
 # Create CMakeLists
 > CMakeLists.txt
-echo 'cmake_minimum_required(VERSION 3.13)' >> CMakeLists.txt
+echo 'cmake_minimum_required(VERSION 3.10)' >> CMakeLists.txt
 echo 'project(Example)' >> CMakeLists.txt
 echo 'set(PROJECT_SRCS ${PROJECT_SOURCE_DIR}/main.cpp)' >> CMakeLists.txt
 echo "find_package(${REPO_NAME} REQUIRED)" >> CMakeLists.txt
