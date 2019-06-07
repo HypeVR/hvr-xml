@@ -38,8 +38,7 @@ jobs:
           echo $(Build.SourcesDirectory)
           which cmake
           pwd
-          cmake $(Build.SourcesDirectory) \ 
-            -DCMAKE_INSTALL_PREFIX=install 
+          cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
         displayName: 'CMake Configuration'
       - script: |
           cd $BUILD_DIR
