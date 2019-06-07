@@ -28,7 +28,7 @@ jobs:
           bash $SOURCE_DIR/AddPPA.sh
         displayName: 'Add HypeVR PPA Source'
       - script: |
-          apt install -y g++ gcc cmake make \
+          sudo apt install -y g++ gcc cmake make \
             gflags googletest valgrind \
             tinyxml2
         displayName: 'Install dependent libraries'
