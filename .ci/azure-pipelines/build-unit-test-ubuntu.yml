@@ -38,6 +38,7 @@ jobs:
           cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
         displayName: 'CMake Configuration'
       - script: |
+          export PATH=$PATH:~/.local/bin/
           cd $BUILD_DIR
           make -j
           make install
