@@ -30,8 +30,8 @@ jobs:
       - script: |
           sudo apt remove libgoogle-glog0v5
           sudo apt install -y g++ gcc cmake make \
-            gflags googletest valgrind glog\
-            tinyxml2
+            gflags googletest valgrind glog \
+            tinyxml2 libboost1.67-dev
         displayName: 'Install dependent libraries'
       - script: |
           mkdir $BUILD_DIR && cd $BUILD_DIR
