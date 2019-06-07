@@ -21,7 +21,6 @@ jobs:
         displayName: 'Install cmakelint & cpplint'
       - script: |
           export PATH=$PATH:~/.local/bin/
-          export
           cd $SOURCE_DIR
           bash $SOURCE_DIR/Lint.sh
         displayName: 'Run Cmakelint and Cpplint'
