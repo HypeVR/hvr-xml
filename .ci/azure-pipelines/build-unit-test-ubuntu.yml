@@ -1,0 +1,47 @@
+trigger:
+- develop
+ 
+jobs:
+  - job: ubuntu1604
+    displayName: Ubuntu 16.04
+    timeoutInMinutes: 0
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    variables:
+      BUILD_DIR: '$(Agent.BuildDirectory)/build'
+      SOURCE_DIR: '$(Build.SourcesDirectory)'
+    steps:
+      - script: |
+          pip3 install cmakelint
+          pip3 install cpplint
+        displayName: 'Install cmakelint & cpplint'
+      - script: |
+          cd $SOURCE_DIR
+          bash $SOURCE_DIR/Lint.sh
+        displayName: 'Run Cmakelint and Cpplint'
+      - script: |
+          bash $SOURCE_DIR/AddPPA.sh
+        displayName: 'Add HypeVR PPA Source'
+      - script: |
+          apt install -y g++ gcc cmake make \
+            gflags googletest valgrind \
+            tinyxml2
+        displayName: 'Install dependent libraries'
+      - script: |
+          mkdir $BUILD_DIR && cd $BUILD_DIR
+          cmake $(Build.SourcesDirectory) \ 
+            -DCMAKE_INSTALL_PREFIX=install 
+        displayName: 'CMake Configuration'
+      - script: |
+          cd $BUILD_DIR
+          make -j
+          make install
+        displayName: 'Build Library'
+      - script: |
+          cd $BUILD_DIR
+          bash $SOURCE_DIR/InstallTest.sh
+        displayName: 'Run Install Test'
+      - script: |
+          cd $BUILD_DIR
+          make test
+        displayName: 'Run Unit Tests'
