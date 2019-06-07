@@ -7,10 +7,10 @@ trigger:
 
 jobs:
   - job: vs2017
-    displayName: Windows VS2017 Build
+    displayName: Windows VS2019 Build
     timeoutInMinutes: 0
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: 'windows-2019'
     variables:
       BUILD_DIR: '$(Agent.WorkFolder)\build'
       CONFIGURATION: 'Release'
