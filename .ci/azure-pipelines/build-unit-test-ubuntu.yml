@@ -36,7 +36,8 @@ jobs:
       - script: |
           mkdir $BUILD_DIR && cd $BUILD_DIR
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 60
-          cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60
+          /usr/bin/cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
         displayName: 'CMake Configuration'
       - script: |
           export PATH=$PATH:~/.local/bin/
