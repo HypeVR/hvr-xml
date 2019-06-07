@@ -28,8 +28,9 @@ jobs:
           bash $SOURCE_DIR/AddPPA.sh
         displayName: 'Add HypeVR PPA Source'
       - script: |
+          sudo apt remove libgoogle-glog0v5
           sudo apt install -y g++ gcc cmake make \
-            gflags googletest valgrind glog \
+            gflags googletest valgrind glog\
             tinyxml2
         displayName: 'Install dependent libraries'
       - script: |
