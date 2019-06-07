@@ -1,0 +1,36 @@
+trigger:
+ - master
+
+pr:
+ - master
+
+jobs:
+  - job: vs2017
+    displayName: Windows VS2019 Build
+    timeoutInMinutes: 0
+    pool:
+      vmImage: 'windows-2019'
+    variables:
+      BUILD_DIR: '$(Agent.WorkFolder)\build'
+      CONFIGURATION: 'Release'
+      C_DRIVE: 'C:\'
+      VCPKG_REMOTE_URL: 'https://vcpkg.s3-us-west-2.amazonaws.com/hvr-xml-build/vs2019/vcpkg-hypevr.zip'
+      VCPKG_LOCAL_URL: 'C:\vcpkg-hypevr.zip'
+      VCPKG_ROOT: 'C:\vcpkg-hypevr'
+      VCPKG_DEFAULT_TRIPLET: 'x64-windows'
+    steps:
+      - script: set
+        displayName: 'Print Environment Variables'
+      - script: |
+          curl %VCPKG_REMOTE_URL% --output %VCPKG_LOCAL_URL%
+        displayName: 'Download HypeVR Prebuilt VCPKG'
+      - script: |
+          mkdir %VCPKG_ROOT%
+          7z.exe x %VCPKG_LOCAL_URL% -o%C_DRIVE%
+        displayName: 'Decompress Prebuilt VCPKG'
+      - script: |
+          mkdir %BUILD_DIR% && cd %BUILD_DIR%
+          cmake $(Build.SourcesDirectory) -A x64 -DBUILD_TESTS=ON  
+        displayName: 'CMake Configuration'
+      - script: cd %BUILD_DIR% && cmake --build . --config Release
+        displayName: 'Build Library'

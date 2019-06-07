@@ -1,0 +1,52 @@
+trigger:
+ - master
+
+pr:
+ - master
+
+jobs:
+  - job: ubuntu1604
+    displayName: Ubuntu 16.04
+    timeoutInMinutes: 0
+    pool:
+      vmImage: 'ubuntu-16.04'
+    variables:
+      BUILD_DIR: '$(Agent.BuildDirectory)/build'
+      SOURCE_DIR: '$(Build.SourcesDirectory)'
+    steps:
+      - script: |
+          pip3 install cmakelint --user
+          pip3 install cpplint --user
+        displayName: 'Install CMakelint & Cpplint'
+      - script: |
+          export PATH=$PATH:~/.local/bin/
+          cd $SOURCE_DIR
+          bash $SOURCE_DIR/Lint.sh
+        displayName: 'Run CMakelint and Cpplint'
+      - script: |
+          bash $SOURCE_DIR/AddPPA.sh
+        displayName: 'Add Proprietary PPA Source'
+      - script: |
+          sudo apt remove libgoogle-glog0v5
+          sudo apt install -y g++ gcc cmake make \
+            gflags googletest valgrind glog clang clang-tidy \
+            tinyxml2 libboost1.67-dev
+        displayName: 'Install Dependent Libraries'
+      - script: |
+          mkdir $BUILD_DIR && cd $BUILD_DIR
+          cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
+        displayName: 'CMake Configuration'
+      - script: |
+          export PATH=$PATH:~/.local/bin/
+          cd $BUILD_DIR
+          make -j
+          make install
+        displayName: 'Build Library'
+      - script: |
+          cd $BUILD_DIR
+          bash $SOURCE_DIR/InstallTest.sh
+        displayName: 'Run Install Test'
+      - script: |
+          cd $BUILD_DIR
+          make test
+        displayName: 'Run Unit Tests'
