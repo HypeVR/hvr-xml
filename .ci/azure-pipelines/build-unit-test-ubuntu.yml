@@ -18,12 +18,12 @@ jobs:
       - script: |
           pip3 install cmakelint --user
           pip3 install cpplint --user
-        displayName: 'Install cmakelint & cpplint'
+        displayName: 'Install CMakelint & Cpplint'
       - script: |
           export PATH=$PATH:~/.local/bin/
           cd $SOURCE_DIR
           bash $SOURCE_DIR/Lint.sh
-        displayName: 'Run Cmakelint and Cpplint'
+        displayName: 'Run CMakelint and Cpplint'
       - script: |
           bash $SOURCE_DIR/AddPPA.sh
         displayName: 'Add Proprietary PPA Source'

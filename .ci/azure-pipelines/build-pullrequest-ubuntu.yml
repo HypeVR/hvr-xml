@@ -1,15 +1,15 @@
 trigger:
-- master
+ - master
 
 pr:
-- master
- 
+ - master
+
 jobs:
   - job: ubuntu1604
     displayName: Ubuntu 16.04
     timeoutInMinutes: 0
     pool:
-      vmImage: 'Ubuntu 16.04'
+      vmImage: 'ubuntu-16.04'
     variables:
       BUILD_DIR: '$(Agent.BuildDirectory)/build'
       SOURCE_DIR: '$(Build.SourcesDirectory)'
@@ -17,28 +17,27 @@ jobs:
       - script: |
           pip3 install cmakelint --user
           pip3 install cpplint --user
-          ls ~/.local/bin
-          export PATH=$PATH:~/.local/bin/
-          export
-        displayName: 'Install cmakelint & cpplint'
+        displayName: 'Install CMakelint & Cpplint'
       - script: |
+          export PATH=$PATH:~/.local/bin/
           cd $SOURCE_DIR
           bash $SOURCE_DIR/Lint.sh
-        displayName: 'Run Cmakelint and Cpplint'
+        displayName: 'Run CMakelint and Cpplint'
       - script: |
           bash $SOURCE_DIR/AddPPA.sh
-        displayName: 'Add HypeVR PPA Source'
+        displayName: 'Add Proprietary PPA Source'
       - script: |
-          apt install -y g++ gcc cmake make \
-            gflags googletest valgrind \
-            tinyxml2
-        displayName: 'Install dependent libraries'
+          sudo apt remove libgoogle-glog0v5
+          sudo apt install -y g++ gcc cmake make \
+            gflags googletest valgrind glog clang clang-tidy \
+            tinyxml2 libboost1.67-dev
+        displayName: 'Install Dependent Libraries'
       - script: |
           mkdir $BUILD_DIR && cd $BUILD_DIR
-          cmake $(Build.SourcesDirectory) \ 
-            -DCMAKE_INSTALL_PREFIX=install 
+          cmake -DCMAKE_INSTALL_PREFIX=install $(Build.SourcesDirectory)
         displayName: 'CMake Configuration'
       - script: |
+          export PATH=$PATH:~/.local/bin/
           cd $BUILD_DIR
           make -j
           make install
