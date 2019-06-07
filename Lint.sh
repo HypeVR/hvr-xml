@@ -6,4 +6,4 @@ echo "Running CppLint"
 cpplint --counting=detailed  "${ALL_PATH[@]}"
 
 echo "Running CMakeLint"
-cmakelint --filter=-readability/mixedcase,-whitespace/extra,-whitespace/indent $(find modules/ apps/ cmake/ -name \CMakeLists.txt -or -name \*.cmake) CMakeLists.txt
+cmakelint --filter=-readability/mixedcase,-whitespace/extra,-whitespace/indent $(find modules/ apps/ -name \CMakeLists.txt -or -name \*.cmake) CMakeLists.txt
