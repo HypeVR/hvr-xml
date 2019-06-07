@@ -28,8 +28,8 @@ jobs:
           bash $SOURCE_DIR/AddPPA.sh
         displayName: 'Add Proprietary PPA Source'
       - script: |
-          sudo apt remove libgoogle-glog0v5 cmake g++ gcc
-          sudo apt install -y g++-7 gcc-7 cmake make \
+          sudo apt remove libgoogle-glog0v5
+          sudo apt install -y cmake make \
             gflags googletest valgrind glog clang clang-tidy \
             tinyxml2 libboost1.67-dev
         displayName: 'Install dependent libraries'
