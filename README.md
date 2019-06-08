@@ -7,11 +7,10 @@ Ubuntu-Dev | Windows-Dev | Ubuntu-Master | Windows-Master
 [ci-ubuntu]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=12
 [ci-ubuntu-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-ubuntu?branchName=master
 
-[ci-windows-dev]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=11
-[ci-windows-image-dev]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-unit-test-ubuntu?branchName=develop
-[ci-windows]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=12
-[ci-windows-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-ubuntu?branchName=master
-
+[ci-windows-dev]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=13
+[ci-windows-image-dev]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-unit-test-windows?branchName=develop
+[ci-windows]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=15
+[ci-windows-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-windows?branchName=master
 
 How to compile:
 ==============
