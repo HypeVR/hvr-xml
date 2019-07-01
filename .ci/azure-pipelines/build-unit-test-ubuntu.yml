@@ -22,10 +22,10 @@ jobs:
       - script: |
           export PATH=$PATH:~/.local/bin/
           cd $SOURCE_DIR
-          bash $SOURCE_DIR/Lint.sh
+          bash $SOURCE_DIR/.ci/scripts/Lint.sh
         displayName: 'Run CMakelint and Cpplint'
       - script: |
-          bash $SOURCE_DIR/AddPPA.sh
+          bash $SOURCE_DIR/.ci/scripts/AddPPA.sh
         displayName: 'Add Proprietary PPA Source'
       - script: |
           sudo apt remove libgoogle-glog0v5
@@ -47,7 +47,7 @@ jobs:
         displayName: 'Build Library'
       - script: |
           cd $BUILD_DIR
-          bash $SOURCE_DIR/InstallTest.sh
+          bash $SOURCE_DIR/.ci/scripts/InstallTest.sh
         displayName: 'Run Install Test'
       - script: |
           cd $BUILD_DIR
