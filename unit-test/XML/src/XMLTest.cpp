@@ -1,4 +1,4 @@
-// Copyright 2018 Qi Yao
+// Copyright 2019 HypeVR
 
 #include "XMLTest.h"
 
@@ -13,13 +13,9 @@ HVR_WINDOWS_ENABLE_ALL_WARNING
 
 extern std::string exe_path;
 
-XMLTest::XMLTest()
-{
-}
+XMLTest::XMLTest() = default;
 
-XMLTest::~XMLTest()
-{
-}
+XMLTest::~XMLTest() = default;
 
 void XMLTest::SetUp()
 {
@@ -162,7 +158,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrByName_test)
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
   ASSERT_EQ((*root)[0].GetAttrByName("abc"), "__NULL__");
   ASSERT_EQ((*root)[0].GetAttrByName("attr"), "yes");
-  std::string attr = "";
+  std::string attr;
   ASSERT_EQ((*root)[0].GetAttrByName("abc", attr), false);
   (*root)[0].GetAttrByName("attr", attr);
   ASSERT_EQ(attr, "yes");
@@ -251,7 +247,7 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
   std::string path_to_proc =
       exe_path + "/data/xml_data/xml_writer_data/result/";
   // position of "/"
-  std::size_t pos = path_to_proc.find("/", 0);
+  std::size_t pos = path_to_proc.find('/', 0);
 
   // loop through a given string of directory and create the missing directory
   // iteratively
@@ -265,14 +261,14 @@ TEST_F(XMLTest, hvr_parser_XMLWriter_Write_test)
     {
       boost::filesystem::create_directory(path, return_err);
 
-      if (return_err)
+      if (return_err.value() != boost::system::errc::success)
       {
         std::cerr << return_err << std::endl;
       }
     }
 
     // push "/" pos back and search for the next "/" pos
-    pos = static_cast<int>(path_to_proc.find("/", pos + 1));
+    pos = static_cast<int>(path_to_proc.find('/', pos + 1));
   }
 
   cur_wrtr.Write(exe_path + "/data/xml_data/xml_writer_data/result/test.xml");
@@ -308,7 +304,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Idx_test)
 
   const hvr::XMLNode &tmp_node = root[1][1];
 
-  std::string val = "";
+  std::string val;
   ASSERT_EQ(tmp_node.QueryText(val), true);
   ASSERT_EQ(val, "4");
   const hvr::XMLNode tmp_node_const = root[1][1];
@@ -325,7 +321,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_Brac_Op_Tag_test)
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
   hvr::XMLNode &tmp_node = (*root)["TEST02"]["VAL2"];
-  std::string val        = "";
+  std::string val;
   ASSERT_EQ(tmp_node.QueryText(val), true);
   ASSERT_EQ(val, "4");
   const hvr::XMLNode tmp_node_const = (*root)["TEST02"]["VAL2"];
@@ -357,7 +353,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_QueryText_test)
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
 
   hvr::XMLNode &tmp_node = (*root)[2][1];
-  std::string val        = "";
+  std::string val;
   ASSERT_EQ(tmp_node.QueryText(val), false);
 
   hvr::XMLNode &tmp_node2 = (*root)["TEST01"]["VAL1"];

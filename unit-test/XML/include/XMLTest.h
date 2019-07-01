@@ -1,4 +1,4 @@
-// Copyright 2018 Qi Yao
+// Copyright 2019 HypeVR
 
 #ifndef UNIT_TEST_XML_INCLUDE_XMLTEST_H_
 #define UNIT_TEST_XML_INCLUDE_XMLTEST_H_

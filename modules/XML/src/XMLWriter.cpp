@@ -1,4 +1,4 @@
-// Copyright @ 2016 Caoyang Jiang & Qi Yao
+// Copyright 2019 HypeVR
 
 #include "Hvr/XML/XMLWriter.h"
 
@@ -30,16 +30,14 @@ XMLWriter::XMLWriter()
 {
   pi_ = std::make_unique<Pimpl>();
 }
-XMLWriter::XMLWriter(const std::shared_ptr<XMLNode> in_node)
+XMLWriter::XMLWriter(const std::shared_ptr<XMLNode> &in_node)
 {
   pi_        = std::make_unique<Pimpl>();
   pi_->root_ = in_node;
 }
-XMLWriter::~XMLWriter()
-{
-}
+XMLWriter::~XMLWriter() = default;
 
-bool XMLWriter::AssignXMLNode(const std::shared_ptr<XMLNode> in_node)
+bool XMLWriter::AssignXMLNode(const std::shared_ptr<XMLNode> &in_node)
 {
   if (in_node == nullptr)
   {
@@ -53,11 +51,7 @@ bool XMLWriter::Write(const std::string &out_path)
 {
   TranferInfo();
   tinyxml2::XMLError stat = pi_->wrtr_.SaveFile(out_path.c_str());
-  if (stat != tinyxml2::XML_SUCCESS)
-  {
-    return false;
-  }
-  return true;
+  return stat == tinyxml2::XML_SUCCESS;
 }
 
 bool XMLWriter::TranferInfo()
@@ -76,7 +70,7 @@ bool XMLWriter::TranferInfo()
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem =
         pi_->wrtr_.NewElement(tmp_node_nam.c_str());
-    if (tmp_val != "")
+    if (!tmp_val.empty())
     {
       cur_elem->SetText(tmp_val.c_str());
     }
@@ -112,7 +106,7 @@ bool XMLWriter::Pimpl::RecurseAppend(XMLNode &parent_node,
     }
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
-    if (tmp_val != "")
+    if (!tmp_val.empty())
     {
       cur_elem->SetText(tmp_val.c_str());
     }

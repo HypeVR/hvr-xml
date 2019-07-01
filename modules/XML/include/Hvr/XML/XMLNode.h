@@ -1,4 +1,4 @@
-// Copyright @ 2016 Caoyang Jiang
+// Copyright 2019 HypeVR
 
 #ifndef MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
 #define MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
@@ -37,7 +37,7 @@ class XMLNode
    * @param[in]  tag   The tag
    */
   HVR_XML_DLL
-  explicit XMLNode(const std::string &tag);
+  explicit XMLNode(std::string tag);
 
   /**
    * @brief      Adds a subnode.

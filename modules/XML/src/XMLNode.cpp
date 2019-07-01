@@ -1,4 +1,4 @@
-// Copyright @ 2016 Caoyang Jiang & Qi Yao
+// Copyright 2019 HypeVR
 
 #include "Hvr/XML/XMLNode.h"
 
@@ -8,20 +8,16 @@ HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <map>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 HVR_WINDOWS_ENABLE_ALL_WARNING
 
 namespace hvr
 {
-XMLNode::XMLNode()
-{
-  // err_list_ = std::vector<std::pair<std::string, XMLNode::NodeStat>>();
-}
-XMLNode::~XMLNode()
-{
-}
+XMLNode::XMLNode()  = default;
+XMLNode::~XMLNode() = default;
 
-XMLNode::XMLNode(const std::string &tag) : tag_(tag)
+XMLNode::XMLNode(std::string tag) : tag_(std::move(tag))
 {
 }
 
@@ -109,16 +105,13 @@ double XMLNode::GetDouble() const
 
 bool XMLNode::GetBool() const
 {
-  if (value_ == "true" || value_ == "1" || value_ == "TRUE" || value_ == "True")
-    return true;
-  else
-    return false;
+  return value_ == "true" || value_ == "1" || value_ == "TRUE" ||
+         value_ == "True";
 }
 
 const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
 {
-  std::map<std::string, std::string>::const_iterator it =
-      attributes_.find(attrname);
+  auto it = attributes_.find(attrname);
   if (it == attributes_.end())
   {
     return null_str;
@@ -129,8 +122,7 @@ const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
 bool XMLNode::GetAttrByName(const std::string &attrname,
                             std::string &attr) const
 {
-  std::map<std::string, std::string>::const_iterator it =
-      attributes_.find(attrname);
+  auto it = attributes_.find(attrname);
   if (it == attributes_.end())
   {
     return false;
@@ -220,7 +212,7 @@ bool XMLNode::IsValid() const
 XMLNode &XMLNode::operator[](const int idx)
 {
   int child_cnt = GetNumOfSubNodes();
-  if (idx > child_cnt - 1 || IsValid() != true)
+  if (idx > child_cnt - 1 || !IsValid())
   {
     bad_child_ = std::make_shared<XMLNode>();
     bad_child_->SetNodeValidity(false);
@@ -235,7 +227,7 @@ const XMLNode &XMLNode::operator[](const int idx) const
 {
   std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
   int child_cnt = GetNumOfSubNodes();
-  if (idx > child_cnt - 1 || IsValid() != true)
+  if (idx > child_cnt - 1 || !IsValid())
   {
     std::shared_ptr<XMLNode> bad_child = std::make_shared<XMLNode>();
     bad_child->SetNodeValidity(false);

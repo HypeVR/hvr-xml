@@ -1,6 +1,16 @@
-|Linux|Windows|cpplint|cmakelint|
-|---|---|---|---|
-|[![Build Status](http://54.68.121.138:8080/buildStatus/icon?job=hvr-sample-build-unit-test-linux)](http://54.68.121.138:8080/job/hvr-sample-build-unit-test-linux/)|[![Build Status](http://52.33.197.63:8080/buildStatus/icon?job=hvr-sample-build-unit-test-windows)](http://52.33.197.63:8080/job/hvr-sample-build-unit-test-windows/)|[![Build Status](http://54.68.121.138:8080/buildStatus/icon?job=hvr-sample-cpplint)](http://54.68.121.138:8080/job/hvr-sample-cpplint/)|[![Build Status](http://54.68.121.138:8080/buildStatus/icon?job=hvr-sample-cmakelint)](http://54.68.121.138:8080/job/hvr-sample-cmakelint/)|
+Ubuntu-Dev | Windows-Dev | Ubuntu-Master | Windows-Master 
+------     | -------     | -----         | -----
+[![Ubuntu Build Status][ci-ubuntu-image-dev]][ci-ubuntu-dev] | [![Windows Build Status][ci-windows-image-dev]][ci-windows-dev] | [![Ubuntu Build Status][ci-ubuntu-image]][ci-ubuntu] | [![Windows Build Status][ci-windows-image]][ci-windows] 
+
+[ci-ubuntu-dev]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=11
+[ci-ubuntu-image-dev]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-unit-test-ubuntu?branchName=develop
+[ci-ubuntu]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=12
+[ci-ubuntu-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-ubuntu?branchName=master
+
+[ci-windows-dev]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=13
+[ci-windows-image-dev]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-unit-test-windows?branchName=develop
+[ci-windows]: https://dev.azure.com/HypeVR/hvr-xml/_build?definitionId=15
+[ci-windows-image]: https://dev.azure.com/HypeVR/hvr-xml/_apis/build/status/build-pullrequest-windows?branchName=master
 
 How to compile:
 ==============
@@ -24,7 +34,7 @@ How to compile:
 
     cd build
 
-    cmake .. -A x64 -C ..\initcmake.txt ..
+    cmake .. -A x64 ..
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Need to specify the compiler otherwise it will be defaulted to the
@@ -148,8 +158,11 @@ Setup coding style
 
 - search and install SublimeLinter-cpplint
 
-- build the latest llvm/clang by following
-http://clang.llvm.org/get_started.html (obtain latest release)
+- install the clang-format and clang-tidy
+
+~~~~~~~~~~~~~~~~~~~~~
+    sudo apt install clang clang-format clang-tidy
+~~~~~~~~~~~~~~~~~~~~~
 
 - ctrl + shift + p
 
@@ -387,144 +400,19 @@ Doxygen
     brew install graphviz
 ~~~~~~~~~~~~~~~~~~~~~
 
-CUDA
---------------
-
-**For Linux**
-
-- Download the latest cuda run file on NVIDIA's website
-
-~~~~~~~~~~~~~~~~~~~~~
-    sudo apt-get remove --purge cuda*
-
-    chmod a+x cuda_x.x.xx_linux.run
-
-    sudo ./cuda_x.x.xx_linux.run
-~~~~~~~~~~~~~~~~~~~~~
-
-- Just install cuda and the samples, don't install the driver
-
-- Add system path
-
-~~~~~~~~~~~~~~~~~~~~~
-    vim ~/.bashrc
-~~~~~~~~~~~~~~~~~~~~~
-
-- export PATH=/usr/local/cuda/bin:$PATH
-
-- export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-
-- Test samples
-
-~~~~~~~~~~~~~~~~~~~~~
-    cd NVIDIA_CUDA-x.x_Samples/bin/x86_64/linux/release
-
-    ./deviceQuery
-
-    ./bandwidthTest
-
-    ./smokeParticles
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-- Download the latest cuda
-
-- Follow instructions on express installation
-
-- Tell vcpkg cuda is installed
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install cuda
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Mac/OSX**
-
-- Download the latest cuda
-
-- Follow instructions (similar to linux install)
-
-OpenCV
+gtest
 --------------
 
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-    sudo apt-get install opencv-main opencv-dev opencv-libs
+    sudo apt-get install googletest
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
 
 ~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install opencv
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Mac/OSX**
-
-- install brew from http://brew.sh
-
-~~~~~~~~~~~~~~~~~~~~~
-    brew install opencv3.2
-~~~~~~~~~~~~~~~~~~~~~
-
-- Follow brew after-installation instruction
-
-- link opencv include, library, share directory from /usr/local/opt/opencv3 to
-  /usr/local/include, /usr/local/lib, and /usr/local/share
-
-MPI
---------------
-
-**For Linux**
-
-- Installed by default
-
-- Example usage
-
-~~~~~~~~~~~~~~~~~~~~~
-    mpirun -n 4 -machinefile host_file ./test
-~~~~~~~~~~~~~~~~~~~~~
-
-- n is the number of process
-
-- host_file contains the ip of the remote computer and localhost, for example:
-
-~~~~~~~~~~~~~~~~~~~~~
-    localhost
-    192.168.0.11
-    192.168.0.12
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install msmpi
-~~~~~~~~~~~~~~~~~~~~~
-
-- Example usage
-
-~~~~~~~~~~~~~~~~~~~~~
-    mpiexec -n 4 -machinefile host_file.txt ./test.exe
-~~~~~~~~~~~~~~~~~~~~~
-
-- n is the number of process
-
-- host_file contains the ip of the remote computer and localhost, for example:
-
-~~~~~~~~~~~~~~~~~~~~~
-    localhost
-    192.168.0.11
-    192.168.0.12
-~~~~~~~~~~~~~~~~~~~~~
-
-- There are 2 services that on windows must be turned on in advance:
-~~~~~~~~~~~~~~~~~~~~~
-RpcLocator
-MsMpiLaunchSvc
-~~~~~~~~~~~~~~~~~~~~~
-- Turn those service on
-~~~~~~~~~~~~~~~~~~~~~
-Go to Task Manager > Services > right click service name and select start
+    vcpkg install gtest
 ~~~~~~~~~~~~~~~~~~~~~
 
 REDSDK
@@ -533,7 +421,7 @@ REDSDK
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-
+    sudo apt-get install redsdk
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
@@ -548,13 +436,13 @@ Boost
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-
+    sudo apt-get install libboost1.68-dev
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
 
 ~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install Boost
+    vcpkg install boost
 ~~~~~~~~~~~~~~~~~~~~~
 
 tinyxml2
@@ -563,43 +451,13 @@ tinyxml2
 **For Linux**
 
 ~~~~~~~~~~~~~~~~~~~~~
-
+    sudo apt-get install tinyxml2
 ~~~~~~~~~~~~~~~~~~~~~
 
 **For Windows**
 
 ~~~~~~~~~~~~~~~~~~~~~
     vcpkg install tinyxml2
-~~~~~~~~~~~~~~~~~~~~~
-
-libxml2
---------------
-
-**For Linux**
-
-~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install libxml2
-~~~~~~~~~~~~~~~~~~~~~
-
-exiv2
---------------
-
-**For Linux**
-
-~~~~~~~~~~~~~~~~~~~~~
-
-~~~~~~~~~~~~~~~~~~~~~
-
-**For Windows**
-
-~~~~~~~~~~~~~~~~~~~~~
-    vcpkg install exiv2
 ~~~~~~~~~~~~~~~~~~~~~
 
 Debugging

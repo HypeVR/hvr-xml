@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
 
+if(WIN32)
+  set(CMAKE_TOOLCHAIN_FILE $ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake
+                           CACHE STRING "")
+  set(VCPKG_TARGET_TRIPLET $ENV{VCPKG_DEFAULT_TRIPLET} CACHE STRING "")
+endif()
+
 project(hvr-xml LANGUAGES CXX)
 
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
@@ -56,7 +62,6 @@ if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44574")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44628")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44640")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44668")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44682")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44686")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44692")
@@ -74,25 +79,40 @@ if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44986")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44987")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w44988")
-elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -fsigned-char")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -freg-struct-return -Wextra")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpedantic -Wcast-qual -Wshadow")
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX
+       OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -fsigned-char -Wshadow")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra -Wpedantic -Wcast-qual")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Winline")
 endif()
 
-if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR CMAKE_COMPILER_IS_GNUCC
-    OR CMAKE_COMPILER_IS_GNUCXX)
-  if(CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Winline")
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
-  endif()
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-message(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+set(CLANG_TIDY_EXECUTABLE "clang-tidy" CACHE STRING "clang-tidy")
+set(CLANG_TIDY_FLAGS "-checks=-*,modernize-*,mpi-*,performance-*,readability-*")
+string(APPEND CLANG_TIDY_FLAGS ",-readability-avoid-const-params-in-decls")
+
+option(RUN_CLANG_TIDY "run clang tidy during compilation" ON)
+
+if(RUN_CLANG_TIDY)
+  set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};${CLANG_TIDY_FLAGS};-fix")
+else()
+  set(CMAKE_CXX_CLANG_TIDY "")
+endif()
+
+set(CPPLINT_EXECUTABLE "cpplint" CACHE STRING "cpplint")
+
+option(RUN_CPPLINT "run cpplint during compilation" ON)
+
+if(RUN_CPPLINT)
+  set(CMAKE_CXX_CPPLINT "${CPPLINT_EXECUTABLE};--quiet")
+else()
+  set(CMAKE_CXX_CPPLINT "")
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -136,3 +156,12 @@ if(NOT TARGET install-app)
                     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=install-app
                     -P "${CMAKE_BINARY_DIR}/cmake_install.cmake")
 endif()
+
+file(GLOB_RECURSE ALL_FILES modules/*.cpp modules/*.h
+                            modules/*.cu modules/*.cuh
+                            apps/*.cpp apps/*.h
+                            unit-test/*cpp unit-test/*.h)
+
+set(CLANG_FORMAT_EXECUTABLE "clang-format" CACHE STRING "clang-format")
+
+add_custom_target(format COMMAND ${CLANG_FORMAT_EXECUTABLE} -i ${ALL_FILES})

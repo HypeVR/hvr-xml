@@ -1,4 +1,4 @@
-// Copyright @ 2016 Caoyang Jiang
+// Copyright 2019 HypeVR
 
 #ifndef MODULES_XML_INCLUDE_HVR_XML_XMLPARSER_H_
 #define MODULES_XML_INCLUDE_HVR_XML_XMLPARSER_H_
@@ -40,7 +40,7 @@ class XMLParser
    *
    * @return     True if parsing successful, False otherwise.
    */
-  HVR_XML_DLL bool Parse(const std::string filename);
+  HVR_XML_DLL bool Parse(const std::string &filename);
 
   /**
    * @brief      Gets the root XML node.
