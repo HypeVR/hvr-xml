@@ -399,3 +399,19 @@ TEST_F(XMLTest, hvr_parser_XMLNode_Clear_test)
   root->Clear();
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 0);
 }
+
+TEST_F(XMLTest, hvr_parser_XMLNode_not_bool_test)
+{
+  hvr::XMLNode nd;
+  nd.SetText("251");
+  try
+  {
+    (void)nd.GetBool();
+  }
+  catch (std::exception &e)
+  {
+    std::string msg = std::string(e.what());
+    std::cout << msg << std::endl;
+    ASSERT_EQ(msg.empty(), false);
+  }
+}
