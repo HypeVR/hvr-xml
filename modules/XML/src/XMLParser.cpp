@@ -77,11 +77,6 @@ bool XMLParser::RecurseProc(XMLNode &parent_node)
     if (i.ToElement()->GetText() != nullptr)
     {
       node.SetText(std::string(i.ToElement()->GetText()));
-      // std::string cur_text = std::string(i.ToElement()->GetText());
-    }
-    else
-    {
-      node.SetText("__EMPTY__");
     }
 
     reader_t_ = i.ToElement();

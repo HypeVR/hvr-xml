@@ -170,7 +170,7 @@ class XMLNode
    * @return     The attribute by name.
    */
   HVR_XML_DLL
-  const std::string &GetAttrByName(const std::string &attrname) const;
+  std::string GetAttrByName(const std::string &attrname) const;
 
   /**
    * @brief      For attributes are known in advance, the attribute propoerty
@@ -326,9 +326,9 @@ class XMLNode
   std::vector<XMLNode> subnodes_;
   std::shared_ptr<XMLNode> bad_child_;
   // Node information
-  std::string tag_     = "";
-  std::string value_   = "";
-  std::string null_str = "__NULL__";
+  std::string tag_;
+  std::string value_;
+  // std::string null_str = "__NULL__";
   std::map<std::string, std::string> attributes_;
   // std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list_;
   bool is_valid_ = true;

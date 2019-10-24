@@ -109,12 +109,12 @@ bool XMLNode::GetBool() const
          value_ == "True";
 }
 
-const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
+std::string XMLNode::GetAttrByName(const std::string &attrname) const
 {
   auto it = attributes_.find(attrname);
   if (it == attributes_.end())
   {
-    return null_str;
+    return std::string();
   }
   return it->second;
 }
