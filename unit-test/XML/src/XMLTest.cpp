@@ -156,7 +156,7 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrByName_test)
       (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
-  ASSERT_EQ((*root)[0].GetAttrByName("abc"), "__NULL__");
+  ASSERT_EQ((*root)[0].GetAttrByName("abc"), "");
   ASSERT_EQ((*root)[0].GetAttrByName("attr"), "yes");
   std::string attr;
   ASSERT_EQ((*root)[0].GetAttrByName("abc", attr), false);
@@ -398,4 +398,20 @@ TEST_F(XMLTest, hvr_parser_XMLNode_Clear_test)
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 2);
   root->Clear();
   ASSERT_EQ(static_cast<int>(root->GetNumOfSubNodes()), 0);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_not_bool_test)
+{
+  hvr::XMLNode nd;
+  nd.SetText("251");
+  try
+  {
+    (void)nd.GetBool();
+  }
+  catch (std::exception &e)
+  {
+    std::string msg = std::string(e.what());
+    std::cout << msg << std::endl;
+    ASSERT_EQ(msg.empty(), false);
+  }
 }

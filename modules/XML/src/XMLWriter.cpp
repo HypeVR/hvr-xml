@@ -60,13 +60,9 @@ bool XMLWriter::TranferInfo()
   tinyxml2::XMLElement *xml_root = pi_->wrtr_.NewElement(root_nam.c_str());
   for (int i = 0; i < static_cast<int>(pi_->root_->GetNumOfSubNodes()); i++)
   {
-    XMLNode &cur_node        = (*pi_->root_)[i];
-    std::string tmp_node_nam = cur_node.GetTag();
-    std::string tmp_val      = cur_node.GetText();
-    if (tmp_val == "__EMPTY__")
-    {
-      tmp_val = "";
-    }
+    XMLNode &cur_node                            = (*pi_->root_)[i];
+    std::string tmp_node_nam                     = cur_node.GetTag();
+    std::string tmp_val                          = cur_node.GetText();
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem =
         pi_->wrtr_.NewElement(tmp_node_nam.c_str());
@@ -97,13 +93,9 @@ bool XMLWriter::Pimpl::RecurseAppend(XMLNode &parent_node,
 {
   for (int i = 0; i < static_cast<int>(parent_node.GetNumOfSubNodes()); i++)
   {
-    XMLNode cur_node         = parent_node[i];
-    std::string tmp_node_nam = cur_node.GetTag();
-    std::string tmp_val      = cur_node.GetText();
-    if (tmp_val == "__EMPTY__")
-    {
-      tmp_val = "";
-    }
+    XMLNode cur_node                             = parent_node[i];
+    std::string tmp_node_nam                     = cur_node.GetTag();
+    std::string tmp_val                          = cur_node.GetText();
     std::map<std::string, std::string> tmp_attrs = cur_node.GetAttrs();
     tinyxml2::XMLElement *cur_elem = wrtr_.NewElement(tmp_node_nam.c_str());
     if (!tmp_val.empty())

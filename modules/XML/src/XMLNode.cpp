@@ -105,16 +105,24 @@ double XMLNode::GetDouble() const
 
 bool XMLNode::GetBool() const
 {
-  return value_ == "true" || value_ == "1" || value_ == "TRUE" ||
-         value_ == "True";
+  if (value_ == "true" || value_ == "1" || value_ == "TRUE" ||
+      value_ == "True" || value_ == "false" || value_ == "0" ||
+      value_ == "FALSE" || value_ == "False")
+  {
+    return value_ == "true" || value_ == "1" || value_ == "TRUE" ||
+           value_ == "True";
+  }
+  std::invalid_argument err("Data type is not bool!");
+  throw err;
+  return false;
 }
 
-const std::string &XMLNode::GetAttrByName(const std::string &attrname) const
+std::string XMLNode::GetAttrByName(const std::string &attrname) const
 {
   auto it = attributes_.find(attrname);
   if (it == attributes_.end())
   {
-    return null_str;
+    return std::string();
   }
   return it->second;
 }
