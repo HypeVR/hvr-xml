@@ -61,26 +61,26 @@ void XMLNode::SetText(const std::string &value)
   value_ = value;
 }
 
-void XMLNode::SetInt(const int &value)
+void XMLNode::SetInt(int value)
 {
   value_ = std::to_string(value);
 }
 
-void XMLNode::SetFloat(const float &value)
+void XMLNode::SetFloat(float value)
 {
   std::ostringstream out;
   out << std::setprecision(12) << value;
   value_ = out.str();
 }
 
-void XMLNode::SetDouble(const double &value)
+void XMLNode::SetDouble(double value)
 {
   std::ostringstream out;
   out << std::setprecision(12) << value;
   value_ = out.str();
 }
 
-void XMLNode::SetBool(const bool &value)
+void XMLNode::SetBool(bool value)
 {
   if (value)
   {
@@ -96,6 +96,48 @@ void XMLNode::AddAttr(const std::string &attrname,
                       const std::string &attrproperty)
 {
   attributes_[attrname] = attrproperty;
+}
+
+void XMLNode::SetAttribute(const std::string &attrname,
+                           const std::string &value)
+{
+  attributes_[attrname] = value;
+}
+
+void XMLNode::SetAttribute(const std::string &attrname, const char *value)
+{
+  attributes_[attrname] = std::string(value);
+}
+
+void XMLNode::SetAttribute(const std::string &attrname, int value)
+{
+  attributes_[attrname] = std::to_string(value);
+}
+
+void XMLNode::SetAttribute(const std::string &attrname, float value)
+{
+  std::ostringstream out;
+  out << std::setprecision(12) << value;
+  attributes_[attrname] = out.str();
+}
+
+void XMLNode::SetAttribute(const std::string &attrname, double value)
+{
+  std::ostringstream out;
+  out << std::setprecision(12) << value;
+  attributes_[attrname] = out.str();
+}
+
+void XMLNode::SetAttribute(const std::string &attrname, bool value)
+{
+  if (value)
+  {
+    attributes_[attrname] = "true";
+  }
+  else
+  {
+    attributes_[attrname] = "false";
+  }
 }
 
 const std::string &XMLNode::GetTag() const
@@ -164,6 +206,36 @@ const std::map<std::string, std::string> &XMLNode::GetAttrs() const
   return attributes_;
 }
 
+int XMLNode::GetAttributeAsInt(const std::string &attrname) const
+{
+  return std::stoi(attributes_.at(attrname));
+}
+
+float XMLNode::GetAttributeAsFloat(const std::string &attrname) const
+{
+  return std::stof(attributes_.at(attrname));
+}
+
+double XMLNode::GetAttributeAsDouble(const std::string &attrname) const
+{
+  return std::stod(attributes_.at(attrname));
+}
+
+bool XMLNode::GetAttributeAsBool(const std::string &attrname) const
+{
+  const std::string &attr_str = attributes_.at(attrname);
+  if (attr_str == "true" || attr_str == "1" || attr_str == "TRUE" ||
+      attr_str == "True" || attr_str == "false" || attr_str == "0" ||
+      attr_str == "FALSE" || attr_str == "False")
+  {
+    return attr_str == "true" || attr_str == "1" || attr_str == "TRUE" ||
+           attr_str == "True";
+  }
+  std::invalid_argument err("Data type is not bool!");
+  throw err;
+  return false;
+}
+
 size_t XMLNode::GetNumOfAttr() const
 {
   return attributes_.size();
@@ -227,7 +299,7 @@ bool XMLNode::NodeErrorChecker(
   return true;
 }
 
-void XMLNode::SetNodeValidity(const bool b)
+void XMLNode::SetNodeValidity(bool b)
 {
   is_valid_ = b;
 }
@@ -237,31 +309,31 @@ bool XMLNode::IsValid() const
   return is_valid_;
 }
 
-XMLNode &XMLNode::operator[](const int idx_)
+XMLNode &XMLNode::operator[](int idx)
 {
   int child_cnt = GetNumOfSubNodes();
-  if (idx_ > child_cnt - 1 || !IsValid())
+  if (idx > child_cnt - 1 || !IsValid())
   {
     bad_child_ = std::make_shared<XMLNode>();
     bad_child_->SetNodeValidity(false);
     return *bad_child_;
   }
-  XMLNode &tmp_node = subnodes_[idx_];
+  XMLNode &tmp_node = subnodes_[idx];
 
   return tmp_node;
 }
 
-const XMLNode &XMLNode::operator[](const int idx_) const
+const XMLNode &XMLNode::operator[](int idx) const
 {
   std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
   int child_cnt = GetNumOfSubNodes();
-  if (idx_ > child_cnt - 1 || !IsValid())
+  if (idx > child_cnt - 1 || !IsValid())
   {
     std::shared_ptr<XMLNode> bad_child = std::make_shared<XMLNode>();
     bad_child->SetNodeValidity(false);
     return *bad_child;
   }
-  const XMLNode &tmp_node = subnodes_[idx_];
+  const XMLNode &tmp_node = subnodes_[idx];
 
   return tmp_node;
 }

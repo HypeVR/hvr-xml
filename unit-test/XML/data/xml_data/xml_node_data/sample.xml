@@ -1,5 +1,5 @@
 <CONFIG>
-    <TEST01 attr="yes">
+    <TEST01 attr="yes" child_count="7" pi="3.14">
         <VAL1>1</VAL1>
         <VAL2>2</VAL2>
         <VALTEXT>What</VALTEXT>

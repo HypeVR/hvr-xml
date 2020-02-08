@@ -77,6 +77,37 @@ TEST_F(XMLTest, hvr_parser_XMLNode_AddAttr_test)
   ASSERT_EQ(static_cast<int>(node_p.GetNumOfAttr()), 1);
 }
 
+TEST_F(XMLTest, hvr_parser_XMLNode_SetAttribute_string_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", "WHAT");
+  ASSERT_EQ(node_p.GetAttrByName("test"), "WHAT");
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_SetAttribute_int_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", 123);
+  ASSERT_EQ(node_p.GetAttributeAsInt("test"), 123);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_SetAttribute_float_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", 1.234567f);
+  ASSERT_EQ(std::abs(node_p.GetAttributeAsFloat("test") - 1.234567f) < 0.000001,
+            true);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_SetAttribute_double_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", 0.00000000101);
+  ASSERT_EQ(std::abs(node_p.GetAttributeAsDouble("test") - 0.00000000101) <
+                0.000000000001,
+            true);
+}
+
 TEST_F(XMLTest, hvr_parser_XMLNode_GetTag_test)
 {
   hvr::XMLParser cur_prsr;
@@ -158,6 +189,30 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrByName_test)
   ASSERT_EQ((*root)[0].GetAttrByName("abc", attr), false);
   (*root)[0].GetAttrByName("attr", attr);
   ASSERT_EQ(attr, "yes");
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetAttributeAsInt_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", 123);
+  ASSERT_EQ(node_p.GetAttributeAsInt("test"), 123);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetAttributeAsFloat_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", 1.234567f);
+  ASSERT_EQ(std::abs(node_p.GetAttributeAsFloat("test") - 1.234567f) < 0.000001,
+            true);
+}
+
+TEST_F(XMLTest, hvr_parser_XMLNode_GetAttributeAsDouble_test)
+{
+  hvr::XMLNode node_p;
+  node_p.SetAttribute("test", 0.00000000101);
+  ASSERT_EQ(std::abs(node_p.GetAttributeAsDouble("test") - 0.00000000101) <
+                0.000000000001,
+            true);
 }
 
 TEST_F(XMLTest, hvr_parser_XMLNode_GetAttrs_test)

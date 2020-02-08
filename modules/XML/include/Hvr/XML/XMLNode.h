@@ -3,11 +3,14 @@
 #ifndef MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
 #define MODULES_XML_INCLUDE_HVR_XML_XMLNODE_H_
 
+HVR_WINDOWS_DISABLE_ALL_WARNING
 #include <map>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <vector>
+HVR_WINDOWS_ENABLE_ALL_WARNING
 
 namespace hvr
 {
@@ -109,7 +112,7 @@ class XMLNode
    * @param[in]  value  The value
    */
   HVR_XML_DLL
-  void SetInt(const int &value);
+  void SetInt(int value);
 
   /**
    * @brief      Sets the element float value for current node.
@@ -117,7 +120,7 @@ class XMLNode
    * @param[in]  value  The value
    */
   HVR_XML_DLL
-  void SetFloat(const float &value);
+  void SetFloat(float value);
 
   /**
    * @brief      Sets the element double value for current node.
@@ -125,7 +128,7 @@ class XMLNode
    * @param[in]  value  The value
    */
   HVR_XML_DLL
-  void SetDouble(const double &value);
+  void SetDouble(double value);
 
   /**
    * @brief      Sets the element boolean value for current node.
@@ -133,7 +136,7 @@ class XMLNode
    * @param[in]  value  The value
    */
   HVR_XML_DLL
-  void SetBool(const bool &value);
+  void SetBool(bool value);
 
   /**
    * @brief      Adds an element attribute.
@@ -143,6 +146,60 @@ class XMLNode
    */
   HVR_XML_DLL
   void AddAttr(const std::string &attrname, const std::string &attrproperty);
+
+  /**
+   * @brief      Sets the attribute.
+   *
+   * @param[in]  attrname  The attrname
+   * @param[in]  value     The value
+   */
+  HVR_XML_DLL
+  void SetAttribute(const std::string &attrname, const std::string &value);
+
+  /**
+   * @brief      Sets the attribute.
+   *
+   * @param[in]  attrname  The attrname
+   * @param[in]  value     The value
+   */
+  HVR_XML_DLL
+  void SetAttribute(const std::string &attrname, const char *value);
+
+  /**
+   * @brief      Sets the attribute with int value.
+   *
+   * @param[in]  attrname  The attrname
+   * @param[in]  value     The value
+   */
+  HVR_XML_DLL
+  void SetAttribute(const std::string &attrname, int value);
+
+  /**
+   * @brief      Sets the attribute with float value.
+   *
+   * @param[in]  attrname  The attrname
+   * @param[in]  value     The value
+   */
+  HVR_XML_DLL
+  void SetAttribute(const std::string &attrname, float value);
+
+  /**
+   * @brief      Sets the attribute with float value.
+   *
+   * @param[in]  attrname  The attrname
+   * @param[in]  value     The value
+   */
+  HVR_XML_DLL
+  void SetAttribute(const std::string &attrname, double value);
+
+  /**
+   * @brief      Sets the attribute with bool value.
+   *
+   * @param[in]  attrname  The attrname
+   * @param[in]  value     The value
+   */
+  HVR_XML_DLL
+  void SetAttribute(const std::string &attrname, bool value);
 
   /**
    * @brief      Gets the element tag.
@@ -226,6 +283,38 @@ class XMLNode
   const std::map<std::string, std::string> &GetAttrs() const;
 
   /**
+   * @brief      Gets the attribute int value.
+   *
+   * @return     attribute value.
+   */
+  HVR_XML_DLL
+  int GetAttributeAsInt(const std::string &attrname) const;
+
+  /**
+   * @brief      Gets the attribute float value.
+   *
+   * @return     attribute value.
+   */
+  HVR_XML_DLL
+  float GetAttributeAsFloat(const std::string &attrname) const;
+
+  /**
+   * @brief      Gets the attribute double value.
+   *
+   * @return     attribute value.
+   */
+  HVR_XML_DLL
+  double GetAttributeAsDouble(const std::string &attrname) const;
+
+  /**
+   * @brief      Gets the attribute boolean value.
+   *
+   * @return     attribute value.
+   */
+  HVR_XML_DLL
+  bool GetAttributeAsBool(const std::string &attrname) const;
+
+  /**
    * @brief      Get number of attributes in this node.
    *
    * @return     The number of attribute.
@@ -291,7 +380,7 @@ class XMLNode
    * @param[in]  b     input value;
    */
   HVR_XML_DLL
-  void SetNodeValidity(const bool b);
+  void SetNodeValidity(bool b);
 
   /**
    * @brief      Return the private member variable is_valid_ value
