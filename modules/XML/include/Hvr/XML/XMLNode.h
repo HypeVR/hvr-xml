@@ -40,6 +40,38 @@ class XMLNode
   explicit XMLNode(std::string tag);
 
   /**
+   * @brief      Get iterator for range based for loop
+   *
+   * @return     begin iterator
+   */
+  HVR_XML_DLL
+  std::vector<XMLNode>::iterator begin();
+
+  /**
+   * @brief      Get const_iterator for range based for loop
+   *
+   * @return     begin iterator
+   */
+  HVR_XML_DLL
+  std::vector<XMLNode>::const_iterator begin() const;
+
+  /**
+   * @brief      Get iterator for range based for loop
+   *
+   * @return     end iterator
+   */
+  HVR_XML_DLL
+  std::vector<XMLNode>::iterator end();
+
+  /**
+   * @brief      Get const_iterator for range based for loop
+   *
+   * @return     end iterator
+   */
+  HVR_XML_DLL
+  std::vector<XMLNode>::const_iterator end() const;
+
+  /**
    * @brief      Adds a subnode.
    *
    * @param[in]  subnode  a node.
@@ -275,7 +307,7 @@ class XMLNode
    * @param[in]  idx     index value of child node
    */
   HVR_XML_DLL
-  XMLNode &operator[](const int idx);
+  XMLNode &operator[](int idx);
 
   /**
    * @brief      Retrieve the child node based on input index value
@@ -283,7 +315,7 @@ class XMLNode
    * @param[in]  idx     index value of child node
    */
   HVR_XML_DLL
-  const XMLNode &operator[](const int idx) const;
+  const XMLNode &operator[](int idx) const;
 
   /**
    * @brief      Retrieve the first child node based on input tag name
@@ -328,9 +360,7 @@ class XMLNode
   // Node information
   std::string tag_;
   std::string value_;
-  // std::string null_str = "__NULL__";
   std::map<std::string, std::string> attributes_;
-  // std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list_;
   bool is_valid_ = true;
 };
 

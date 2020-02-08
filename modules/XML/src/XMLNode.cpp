@@ -21,6 +21,26 @@ XMLNode::XMLNode(std::string tag) : tag_(std::move(tag))
 {
 }
 
+std::vector<XMLNode>::iterator XMLNode::begin()
+{
+  return subnodes_.begin();
+}
+
+std::vector<XMLNode>::const_iterator XMLNode::begin() const
+{
+  return subnodes_.begin();
+}
+
+std::vector<XMLNode>::iterator XMLNode::end()
+{
+  return subnodes_.end();
+}
+
+std::vector<XMLNode>::const_iterator XMLNode::end() const
+{
+  return subnodes_.end();
+}
+
 void XMLNode::PushBack(const XMLNode &subnode)
 {
   subnodes_.push_back(subnode);
@@ -217,31 +237,31 @@ bool XMLNode::IsValid() const
   return is_valid_;
 }
 
-XMLNode &XMLNode::operator[](const int idx)
+XMLNode &XMLNode::operator[](const int idx_)
 {
   int child_cnt = GetNumOfSubNodes();
-  if (idx > child_cnt - 1 || !IsValid())
+  if (idx_ > child_cnt - 1 || !IsValid())
   {
     bad_child_ = std::make_shared<XMLNode>();
     bad_child_->SetNodeValidity(false);
     return *bad_child_;
   }
-  XMLNode &tmp_node = subnodes_[idx];
+  XMLNode &tmp_node = subnodes_[idx_];
 
   return tmp_node;
 }
 
-const XMLNode &XMLNode::operator[](const int idx) const
+const XMLNode &XMLNode::operator[](const int idx_) const
 {
   std::vector<std::pair<std::string, XMLNode::NodeStat>> err_list;
   int child_cnt = GetNumOfSubNodes();
-  if (idx > child_cnt - 1 || !IsValid())
+  if (idx_ > child_cnt - 1 || !IsValid())
   {
     std::shared_ptr<XMLNode> bad_child = std::make_shared<XMLNode>();
     bad_child->SetNodeValidity(false);
     return *bad_child;
   }
-  const XMLNode &tmp_node = subnodes_[idx];
+  const XMLNode &tmp_node = subnodes_[idx_];
 
   return tmp_node;
 }

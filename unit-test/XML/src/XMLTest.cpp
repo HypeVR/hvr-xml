@@ -117,8 +117,6 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetFloat_test)
       (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
-  std::cout << std::abs((*root)[0]["VALFLOAT"].GetDouble() - 1.234567)
-            << std::endl;
   ASSERT_EQ(std::abs((*root)[0]["VALFLOAT"].GetDouble() - 1.234567) < 0.000001,
             true);
 }
@@ -130,8 +128,6 @@ TEST_F(XMLTest, hvr_parser_XMLNode_GetDouble_test)
       (exe_path + "/data/xml_data/xml_node_data/sample.xml");
   cur_prsr.Parse(file_path);
   std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
-  std::cout << std::abs((*root)[0]["VALDOUBLE"].GetDouble() - 9.876543210123)
-            << std::endl;
 
   ASSERT_EQ(std::abs((*root)[0]["VALDOUBLE"].GetDouble() - 9.876543210123) <
                 0.000000000001,
@@ -379,6 +375,21 @@ TEST_F(XMLTest, hvr_parser_XMLNode_QueryAttributes_test)
   ASSERT_EQ(attrs2["attr"], "no");
 }
 
+TEST_F(XMLTest, hvr_parser_XMLNode_Iterator_test)
+{
+  hvr::XMLParser cur_prsr;
+  std::string file_path = exe_path + "/data/xml_data/xml_node_data/sample.xml";
+  cur_prsr.Parse(file_path);
+  std::shared_ptr<hvr::XMLNode> root = cur_prsr.GetRoot();
+  int count                          = 0;
+  for (auto &e : *root)
+  {
+    (void)e;
+    count++;
+  }
+  ASSERT_EQ(count, 2);
+}
+
 TEST_F(XMLTest, hvr_parser_XMLParser_test)
 {
   hvr::XMLParser cur_prsr;
@@ -411,7 +422,6 @@ TEST_F(XMLTest, hvr_parser_XMLNode_not_bool_test)
   catch (std::exception &e)
   {
     std::string msg = std::string(e.what());
-    std::cout << msg << std::endl;
     ASSERT_EQ(msg.empty(), false);
   }
 }
