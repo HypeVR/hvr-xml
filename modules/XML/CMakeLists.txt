@@ -21,7 +21,6 @@ set(PROJECT_INCS
 
 set(PROJECT_INFO ${PROJECT_SOURCE_DIR}/info.dox)
 
-# Separate include and src folder on Visual Studio
 source_group("include" FILES ${PROJECT_INCS})
 source_group("src" FILES ${PROJECT_SRCS})
 
@@ -33,8 +32,9 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_INCS}
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
 target_compile_definitions(
-  ${PROJECT_NAME} PUBLIC HVR_WINDOWS_DISABLE_ALL_WARNING=${DISABLE}
-  HVR_WINDOWS_ENABLE_ALL_WARNING=${ENABLE})
+  ${PROJECT_NAME} PUBLIC
+  $<$<COMPILE_LANGUAGE:CXX>:HVR_WINDOWS_DISABLE_ALL_WARNING=${DISABLE}>
+  $<$<COMPILE_LANGUAGE:CXX>:HVR_WINDOWS_ENABLE_ALL_WARNING=${ENABLE}>)
 
 target_compile_definitions(${PROJECT_NAME} INTERFACE HVR_XML_DLL=${DLLIMPORT})
 
